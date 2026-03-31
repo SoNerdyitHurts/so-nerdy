@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: {
     default: 'so-nerdy.dev',
-    template: '% | The Lab',
+    template: '%s | The Lab',
   },
   description: 'The lab is always running. Stability not guaranteed.'
 }

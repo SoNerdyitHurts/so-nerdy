@@ -5,25 +5,25 @@ export const metadata = {
 const activeProjects = [
   {
     name: "AI Co-Pilot",
-    status: "In Progress",
-    note: "Natural language control, real-world testing, and failure handling.",
+    status: "Being pushed until it breaks",
+    note: "Trying to make natural language actually control things without it getting weird.",
   },
   {
     name: "Household Board / Calendar",
-    status: "Iterating",
-    note: "UI consistency, edit-state behavior, layout fixes, and mobile cleanup.",
+    status: "Fighting the UI",
+    note: "Making edit states make sense and not feel like a different system every time.",
   },
   {
     name: "This Site",
-    status: "Live Build",
-    note: "Built in public. The site itself is part of the experiment.",
+    status: "Built in public",
+    note: "No hiding the mess. This is the process, not just the result.",
   },
 ];
 
 const brokenRightNow = [
-  "Project pages are still thin and need real screenshots, clips, and receipts.",
-  "The visual system is still early. It has a pulse, but not a final form.",
-  "Testing Ground is a first pass and needs deeper hardware/config detail.",
+  "Some pages look finished until you actually click into them.",
+  "The visual system is still arguing with itself.",
+  "There are decisions in here I will probably undo later.",
 ];
 
 const testingGround = [
@@ -32,13 +32,13 @@ const testingGround = [
   { label: "Audio", value: "Shure SM7B + Cloudlifter + GoXLR" },
   { label: "Control", value: "Stream Deck + local tool workflows" },
   { label: "Use Case", value: "Automation, UI testing, voice testing, and general tinkering" },
-  { label: "Philosophy", value: "Stability over fake perfection" },
+  { label: "Philosophy", value: "Stability > pretending everything works" },
 ];
 
 const labNotes = [
-  "Active experiments. Results may vary.",
-  "Built here, broken here, fixed here.",
-  "If something is weird, that probably means I touched it recently.",
+  "If something is broken, it’s because I touched it.",
+  "This is not staged. This is just where it’s at.",
+  "The goal is better, not finished.",
 ];
 
 export default function LabPage() {

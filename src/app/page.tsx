@@ -1,65 +1,70 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+    <main className="min-h-screen bg-[#0B0B0F] text-[#EAEAF0] px-6 py-12">
+      <div className="max-w-5xl mx-auto">
+        <p className="text-sm uppercase tracking-[0.35em] text-[#9A9AB0] mb-4">
+          so-nerdy.dev
+        </p>
+
+        <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-4">
+          The lab is always running.
+        </h1>
+
+        <p className="text-xl md:text-2xl text-[#9A9AB0] mb-10 italic">
+          Stability not guaranteed.
+        </p>
+
+        <div className="grid gap-4 md:grid-cols-2">
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/lab"
+            className="block rounded-2xl border border-[#1A1A24] bg-[#111118] p-6 hover:border-[#FF2E88] transition"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            <h2 className="text-2xl font-semibold mb-2">The Lab</h2>
+            <p className="text-[#9A9AB0]">
+              Active builds, unstable experiments, and whatever is currently in progress.
+            </p>
           </a>
+
           <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/completed"
+            className="block rounded-2xl border border-[#1A1A24] bg-[#111118] p-6 hover:border-[#7A5CFF] transition"
           >
-            Documentation
+            <h2 className="text-2xl font-semibold mb-2">Completed</h2>
+            <p className="text-[#9A9AB0]">
+              Stuff that works well enough to count.
+            </p>
+          </a>
+
+          <a
+            href="/graveyard"
+            className="block rounded-2xl border border-[#1A1A24] bg-[#111118] p-6 hover:border-[#FF8A00] transition"
+          >
+            <h2 className="text-2xl font-semibold mb-2">Graveyard</h2>
+            <p className="text-[#9A9AB0]">
+              Abandoned ideas, dead ends, and projects not worth fixing. For now.
+            </p>
+          </a>
+
+          <a
+            href="/this-site"
+            className="block rounded-2xl border border-[#1A1A24] bg-[#111118] p-6 hover:border-[#00E5FF] transition"
+          >
+            <h2 className="text-2xl font-semibold mb-2">This Site</h2>
+            <p className="text-[#9A9AB0]">
+              The site itself is part of the experiment.
+            </p>
           </a>
         </div>
-      </main>
-    </div>
+
+        <div className="mt-12 rounded-2xl border border-[#1A1A24] bg-[#111118] p-6">
+          <h3 className="text-lg font-semibold mb-3">Broken Right Now</h3>
+          <ul className="list-disc pl-5 space-y-2 text-[#9A9AB0]">
+            <li>Most pages are still empty</li>
+            <li>Styling is basic</li>
+            <li>Some routes exist only because I wanted them live</li>
+          </ul>
+        </div>
+      </div>
+    </main>
   );
 }

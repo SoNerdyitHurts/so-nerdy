@@ -36,9 +36,9 @@ const testingGround = [
 ];
 
 const labNotes = [
-  "If something is broken, it’s because I touched it.",
-  "This looked like a good idea earlier.",
-  "Some of this is intentional. Not all of it.",
+  "This worked before I changed something.",
+  "Still deciding if this is a feature or a mistake.",
+  "Behavior may vary depending on what I broke.",
 ];
 
 export default function LabPage() {

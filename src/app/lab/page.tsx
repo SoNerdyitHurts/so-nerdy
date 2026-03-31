@@ -37,8 +37,8 @@ const testingGround = [
 
 const labNotes = [
   "If something is broken, it’s because I touched it.",
-  "This is not staged. This is just where it’s at.",
-  "The goal is better, not finished.",
+  "This looked like a good idea earlier.",
+  "Some of this is intentional. Not all of it.",
 ];
 
 export default function LabPage() {

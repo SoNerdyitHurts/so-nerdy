@@ -7,16 +7,19 @@ const activeProjects = [
     name: "AI Co-Pilot",
     status: "being pushed until it breaks",
     note: "Trying to make natural language control real without it getting weird.",
+    comment: "// this keeps getting smarter and weirder at the same time",
   },
   {
     name: "Household Board / Calendar",
     status: "fighting the UI",
     note: "Making edit states make sense and not feel like a different system every time.",
+    comment: "// this one keeps pretending it is done when it is not",
   },
   {
     name: "This Site",
     status: "built in public",
     note: "No hiding the mess. The site itself is one of the experiments.",
+    comment: "// still too clean, still not chaotic enough",
   },
 ];
 
@@ -53,10 +56,29 @@ const benchNotes = [
   "// might scrap this section later",
 ];
 
+const recentActivity = [
+  "[just now] touched layout again",
+  "[2m ago] broke something in edit flow",
+  "[5m ago] reverted a change that made sense earlier",
+  "[??] something still feels off",
+];
+
 export default function LabPage() {
   return (
-    <main className="px-4 py-8 md:px-6 md:py-10">
-      <section className="mx-auto max-w-7xl border border-white/10 bg-[#171A1F]/95">
+    <main className="relative px-4 py-8 md:px-6 md:py-10">
+      <div className="mb-6 rotate-[-0.3deg] border border-[#FF8A00]/30 bg-[#FF8A00]/10 px-4 py-3 text-xs uppercase tracking-[0.2em] text-[#FFB067]">
+        ⚠ live environment — changes happening without warning
+      </div>
+
+      <div className="pointer-events-none absolute right-6 top-28 rotate-[5deg] border border-white/10 bg-[#1A1F24] px-3 py-2 text-xs text-[#9AA3B5]">
+        check this later
+      </div>
+
+      <div className="pointer-events-none absolute left-8 top-[34rem] rotate-[-4deg] border border-white/10 bg-[#1A1F24] px-3 py-2 text-xs text-[#9AA3B5]">
+        this broke something else
+      </div>
+
+      <section className="mx-auto max-w-7xl border border-white/10 bg-[#1B1F24]/95">
         <div className="grid gap-0 lg:grid-cols-[1.12fr_0.88fr]">
           <div className="border-b border-white/10 p-6 md:p-10 lg:border-b-0 lg:border-r">
             <p className="text-xs uppercase tracking-[0.36em] text-[#96A0B3]">
@@ -100,16 +122,19 @@ export default function LabPage() {
             <p className="text-xs uppercase tracking-[0.3em] text-[#96A0B3]">
               Notes while I’m working
             </p>
+
             <div className="mt-5 space-y-4 text-sm leading-7 text-[#B8BFCD]">
               <p>
                 This page is a snapshot of what I’m actively working on, not a
                 polished representation of it.
               </p>
+
               <p>
                 The goal is that it feels like you’re ruffling through my notes
                 and poking at the experiments instead of looking at a finished
                 display.
               </p>
+
               <div className="mt-6 space-y-3 border border-white/10 bg-[#13171B] p-4 text-[#98A0B0]">
                 {benchNotes.map((note) => (
                   <div key={note}>{note}</div>
@@ -121,7 +146,19 @@ export default function LabPage() {
       </section>
 
       <section className="mx-auto mt-8 grid max-w-7xl gap-5 lg:grid-cols-[1.18fr_0.82fr]">
-        <div className="border border-white/10 bg-[#171A1F] p-5 rotate-[-0.18deg]">
+        <div className="border border-white/10 bg-[#1B1F24] p-5 rotate-[-0.18deg]">
+          <div className="mb-6 border border-white/10 bg-[#12161A] p-4 text-xs text-[#9AA3B5]">
+            <div className="mb-2 uppercase tracking-[0.25em] text-[#6F7686]">
+              recent activity
+            </div>
+
+            <div className="space-y-1 font-mono">
+              {recentActivity.map((item) => (
+                <div key={item}>{item}</div>
+              ))}
+            </div>
+          </div>
+
           <div className="mb-6 flex items-center justify-between gap-4">
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-[#96A0B3]">
@@ -131,6 +168,7 @@ export default function LabPage() {
                 Things currently being messed with
               </h2>
             </div>
+
             <div className="border border-[#FF2E88]/30 bg-[#FF2E88]/10 px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-[#FF83BC]">
               live
             </div>
@@ -150,6 +188,9 @@ export default function LabPage() {
                     <p className="mt-3 max-w-2xl text-sm leading-7 text-[#B3BBCB]">
                       {project.note}
                     </p>
+                    <div className="mt-4 text-xs italic text-[#7E8698]">
+                      {project.comment}
+                    </div>
                   </div>
 
                   <span className="border border-white/10 bg-white/[0.03] px-2 py-1 text-[10px] uppercase tracking-[0.22em] text-[#CCD3E0]">
@@ -162,19 +203,20 @@ export default function LabPage() {
         </div>
 
         <div className="space-y-5">
-          <div className="border border-white/10 bg-[#171A1F] p-5 rotate-[0.18deg]">
-            <p className="text-xs uppercase tracking-[0.3em] text-[#96A0B3]">
+          <div className="border border-[#FF2E88]/30 bg-[#FF2E88]/10 p-5 rotate-[0.18deg]">
+            <p className="text-xs uppercase tracking-[0.3em] text-[#FFB0D1]">
               Broken Right Now
             </p>
+
             <h2 className="mt-2 text-2xl font-semibold">
               This was working earlier.
             </h2>
 
-            <ul className="mt-5 space-y-3 text-sm text-[#B8BFCD]">
+            <ul className="mt-5 space-y-3 text-sm text-[#F0D7E2]">
               {brokenRightNow.map((item) => (
                 <li
                   key={item}
-                  className="border border-[#FF8A00]/25 bg-[#FF8A00]/6 p-4"
+                  className="border border-[#FF8A00]/25 bg-[#FF8A00]/10 p-4"
                 >
                   {item}
                 </li>
@@ -182,29 +224,36 @@ export default function LabPage() {
             </ul>
           </div>
 
-          <div className="border border-white/10 bg-[#171A1F] p-5">
+          <div className="border border-white/10 bg-[#1B1F24] p-5">
             <p className="text-xs uppercase tracking-[0.3em] text-[#96A0B3]">
               Current state of things
             </p>
+
             <h2 className="mt-2 text-2xl font-semibold">
               What’s going on right now
             </h2>
 
             <div className="mt-5 space-y-3 text-sm text-[#B3BBCB]">
-              <div>still pushing toward “messy workbench” instead of “clean website”</div>
+              <div>
+                still pushing toward “messy workbench” instead of “clean website”
+              </div>
               <div>needs more notes, more artifacts, less polish</div>
-              <div>invites poking around more than it currently invites reading</div>
+              <div>
+                invites poking around more than it currently invites reading
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto mt-8 max-w-7xl border border-white/10 bg-[#171A1F] p-6 md:p-8">
+      <section className="mx-auto mt-8 max-w-7xl border border-white/10 bg-[#1B1F24] p-6 md:p-8">
         <div className="mb-8">
           <p className="text-xs uppercase tracking-[0.3em] text-[#96A0B3]">
             Testing Ground
           </p>
+
           <h2 className="mt-2 text-3xl font-semibold">Current environment</h2>
+
           <p className="mt-3 max-w-3xl text-sm leading-7 text-[#B3BBCB]">
             Not a full spec dump. Just the parts that actually matter to how
             this stuff gets built, tested, and occasionally abused.

@@ -65,20 +65,74 @@ const recentActivity = [
 
 export default function LabPage() {
   return (
-    <main className="relative px-4 py-8 md:px-6 md:py-10">
-      <div className="mb-6 rotate-[-0.3deg] border border-[#FF8A00]/30 bg-[#FF8A00]/10 px-4 py-3 text-xs uppercase tracking-[0.2em] text-[#FFB067]">
+    <main className="relative min-h-screen overflow-hidden px-4 py-8 md:px-6 md:py-10">
+      {/* hybrid surface background */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        {/* base surface */}
+        <div className="absolute inset-0 bg-[#171b20]" />
+
+        {/* softened grid */}
+        <div
+          className="absolute inset-0 opacity-[0.045]"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(255,255,255,0.8) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255,255,255,0.8) 1px, transparent 1px)
+            `,
+            backgroundSize: "44px 44px",
+          }}
+        />
+
+        {/* irregular lighting so it stops feeling perfectly digital */}
+        <div
+          className="absolute inset-0 opacity-90"
+          style={{
+            background: `
+              radial-gradient(circle at 18% 22%, rgba(65, 78, 97, 0.22), transparent 0 26%),
+              radial-gradient(circle at 76% 16%, rgba(35, 79, 96, 0.16), transparent 0 22%),
+              radial-gradient(circle at 64% 68%, rgba(68, 51, 34, 0.10), transparent 0 24%),
+              radial-gradient(circle at 12% 82%, rgba(95, 58, 36, 0.08), transparent 0 18%)
+            `,
+          }}
+        />
+
+        {/* subtle grain / paper-ish surface */}
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage: `
+              radial-gradient(rgba(255,255,255,0.9) 0.6px, transparent 0.8px),
+              radial-gradient(rgba(255,255,255,0.35) 0.5px, transparent 0.7px)
+            `,
+            backgroundSize: "7px 7px, 11px 11px",
+            backgroundPosition: "0 0, 3px 4px",
+            mixBlendMode: "soft-light",
+          }}
+        />
+
+        {/* vignette */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at center, transparent 38%, rgba(7,9,12,0.28) 72%, rgba(4,5,7,0.55) 100%)",
+          }}
+        />
+      </div>
+
+      <div className="mb-6 border border-[#FF8A00]/30 bg-[#FF8A00]/10 px-4 py-3 text-xs uppercase tracking-[0.2em] text-[#FFB067]">
         ⚠ live environment — changes happening without warning
       </div>
 
-      <div className="pointer-events-none absolute right-6 top-28 rotate-[5deg] border border-white/10 bg-[#1A1F24] px-3 py-2 text-xs text-[#9AA3B5]">
+      <div className="pointer-events-none absolute right-6 top-28 border border-white/10 bg-[#20262D]/90 px-3 py-2 text-xs text-[#9AA3B5] shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
         check this later
       </div>
 
-      <div className="pointer-events-none absolute left-8 top-[34rem] rotate-[-4deg] border border-white/10 bg-[#1A1F24] px-3 py-2 text-xs text-[#9AA3B5]">
+      <div className="pointer-events-none absolute left-6 top-[35rem] border border-white/10 bg-[#20262D]/90 px-3 py-2 text-xs text-[#9AA3B5] shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
         this broke something else
       </div>
 
-      <section className="mx-auto max-w-7xl border border-white/10 bg-[#1B1F24]/95">
+      <section className="mx-auto max-w-7xl border border-white/10 bg-[#1D2229]/90 backdrop-blur-[1px]">
         <div className="grid gap-0 lg:grid-cols-[1.12fr_0.88fr]">
           <div className="border-b border-white/10 p-6 md:p-10 lg:border-b-0 lg:border-r">
             <p className="text-xs uppercase tracking-[0.36em] text-[#96A0B3]">
@@ -105,12 +159,10 @@ export default function LabPage() {
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              {labNotes.map((note, index) => (
+              {labNotes.map((note) => (
                 <div
                   key={note}
-                  className={`border border-white/10 bg-[#12161A] px-4 py-3 text-sm text-[#D5DBE6] ${
-                    index === 1 ? "rotate-[0.45deg]" : "rotate-[-0.35deg]"
-                  }`}
+                  className="border border-white/10 bg-[#151A1F]/95 px-4 py-3 text-sm text-[#D5DBE6]"
                 >
                   {note}
                 </div>
@@ -135,7 +187,7 @@ export default function LabPage() {
                 display.
               </p>
 
-              <div className="mt-6 space-y-3 border border-white/10 bg-[#13171B] p-4 text-[#98A0B0]">
+              <div className="mt-6 space-y-3 border border-white/10 bg-[#151A1F]/95 p-4 text-[#98A0B0]">
                 {benchNotes.map((note) => (
                   <div key={note}>{note}</div>
                 ))}
@@ -146,8 +198,8 @@ export default function LabPage() {
       </section>
 
       <section className="mx-auto mt-8 grid max-w-7xl gap-5 lg:grid-cols-[1.18fr_0.82fr]">
-        <div className="border border-white/10 bg-[#1B1F24] p-5 rotate-[-0.18deg]">
-          <div className="mb-6 border border-white/10 bg-[#12161A] p-4 text-xs text-[#9AA3B5]">
+        <div className="border border-white/10 bg-[#1D2229]/90 p-5 backdrop-blur-[1px]">
+          <div className="mb-6 border border-white/10 bg-[#151A1F]/95 p-4 text-xs text-[#9AA3B5]">
             <div className="mb-2 uppercase tracking-[0.25em] text-[#6F7686]">
               recent activity
             </div>
@@ -164,6 +216,7 @@ export default function LabPage() {
               <p className="text-xs uppercase tracking-[0.3em] text-[#96A0B3]">
                 Current Projects
               </p>
+
               <h2 className="mt-2 text-2xl font-semibold">
                 Things currently being messed with
               </h2>
@@ -175,19 +228,19 @@ export default function LabPage() {
           </div>
 
           <div className="space-y-4">
-            {activeProjects.map((project, index) => (
+            {activeProjects.map((project) => (
               <div
                 key={project.name}
-                className={`border border-white/10 bg-[#12161A] p-5 transition hover:border-[#7A5CFF]/40 hover:bg-[#171C21] ${
-                  index % 2 === 0 ? "rotate-[0.12deg]" : "rotate-[-0.12deg]"
-                }`}
+                className="border border-white/10 bg-[#151A1F]/95 p-5 transition hover:border-[#7A5CFF]/40 hover:bg-[#181E24]"
               >
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
                     <h3 className="text-xl font-semibold">{project.name}</h3>
+
                     <p className="mt-3 max-w-2xl text-sm leading-7 text-[#B3BBCB]">
                       {project.note}
                     </p>
+
                     <div className="mt-4 text-xs italic text-[#7E8698]">
                       {project.comment}
                     </div>
@@ -203,7 +256,7 @@ export default function LabPage() {
         </div>
 
         <div className="space-y-5">
-          <div className="border border-[#FF2E88]/30 bg-[#FF2E88]/10 p-5 rotate-[0.18deg]">
+          <div className="border border-[#FF2E88]/30 bg-[rgba(72,12,36,0.55)] p-5 backdrop-blur-[1px]">
             <p className="text-xs uppercase tracking-[0.3em] text-[#FFB0D1]">
               Broken Right Now
             </p>
@@ -224,7 +277,7 @@ export default function LabPage() {
             </ul>
           </div>
 
-          <div className="border border-white/10 bg-[#1B1F24] p-5">
+          <div className="border border-white/10 bg-[#1D2229]/90 p-5 backdrop-blur-[1px]">
             <p className="text-xs uppercase tracking-[0.3em] text-[#96A0B3]">
               Current state of things
             </p>
@@ -246,7 +299,7 @@ export default function LabPage() {
         </div>
       </section>
 
-      <section className="mx-auto mt-8 max-w-7xl border border-white/10 bg-[#1B1F24] p-6 md:p-8">
+      <section className="mx-auto mt-8 max-w-7xl border border-white/10 bg-[#1D2229]/90 p-6 md:p-8 backdrop-blur-[1px]">
         <div className="mb-8">
           <p className="text-xs uppercase tracking-[0.3em] text-[#96A0B3]">
             Testing Ground
@@ -261,16 +314,15 @@ export default function LabPage() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {testingGround.map((item, index) => (
+          {testingGround.map((item) => (
             <div
               key={item.label}
-              className={`border border-white/10 bg-[#12161A] p-5 ${
-                index % 2 === 0 ? "rotate-[0.1deg]" : "rotate-[-0.1deg]"
-              }`}
+              className="border border-white/10 bg-[#151A1F]/95 p-5"
             >
               <p className="text-xs uppercase tracking-[0.25em] text-[#8F98AA]">
                 {item.label}
               </p>
+
               <p className="mt-3 text-base font-medium text-[#ECEFF4]">
                 {item.value}
               </p>

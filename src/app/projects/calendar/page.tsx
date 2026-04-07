@@ -22,6 +22,13 @@ const pokeVersions = [
   },
 ];
 
+const failurePile = [
+  "edit button disappeared",
+  "modal cut off on mobile",
+  "layout started clipping content",
+  "calendar stopped behaving like a card",
+];
+
 const stressTests = [
   {
     name: "glance test",
@@ -40,13 +47,6 @@ const stressTests = [
   },
 ];
 
-const failurePile = [
-  "edit button disappeared",
-  "modal cut off on mobile",
-  "layout started clipping content",
-  "calendar stopped behaving like a card",
-];
-
 const currentState = [
   "partially working",
   "still fighting itself",
@@ -61,302 +61,323 @@ const futureThreads = [
 
 export default function CalendarProjectPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#12100d] text-[#f3eadb]">
-      <div className="pointer-events-none absolute inset-0 opacity-[0.03]">
+    <main className="relative min-h-screen overflow-hidden bg-[#dfe8f2] text-[#10161d]">
+      {/* bright energized surface */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 bg-[#dfe8f2]" />
+
         <div
-          className="h-full w-full"
+          className="absolute inset-0 opacity-100"
           style={{
-            backgroundImage: `
-              linear-gradient(to right, rgba(255,244,220,0.65) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(255,244,220,0.50) 1px, transparent 1px)
+            background: `
+              radial-gradient(circle at 14% 12%, rgba(0,229,255,0.12), transparent 0 24%),
+              radial-gradient(circle at 84% 10%, rgba(255,46,136,0.10), transparent 0 20%),
+              radial-gradient(circle at 18% 72%, rgba(116,255,179,0.10), transparent 0 20%),
+              radial-gradient(circle at 72% 64%, rgba(130,97,255,0.08), transparent 0 18%)
             `,
-            backgroundSize: "56px 56px",
+          }}
+        />
+
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to bottom, rgba(15,23,42,0.9) 1px, transparent 1px)",
+            backgroundSize: "100% 26px",
+          }}
+        />
+
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(15,23,42,0.85) 1px, transparent 1px)",
+            backgroundSize: "84px 100%",
+          }}
+        />
+
+        <div
+          className="absolute inset-0 opacity-[0.08]"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.03) 24%, rgba(0,0,0,0.02) 58%, rgba(255,255,255,0.08) 100%)",
           }}
         />
       </div>
 
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.10]"
-        style={{
-          background: `
-            radial-gradient(circle at 14% 12%, rgba(255,195,120,0.10), transparent 0 22%),
-            radial-gradient(circle at 78% 18%, rgba(255,120,120,0.08), transparent 0 18%),
-            radial-gradient(circle at 30% 70%, rgba(255,245,220,0.06), transparent 0 20%)
-          `,
-        }}
-      />
-
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
-        style={{
-          backgroundImage: `
-            radial-gradient(rgba(255,255,255,0.85) 0.7px, transparent 0.9px),
-            radial-gradient(rgba(255,255,255,0.25) 0.5px, transparent 0.7px)
-          `,
-          backgroundSize: "9px 9px, 15px 15px",
-          backgroundPosition: "0 0, 4px 5px",
-          mixBlendMode: "soft-light",
-        }}
-      />
-
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle at center, transparent 40%, rgba(8,7,5,0.22) 72%, rgba(5,4,3,0.52) 100%)",
-        }}
-      />
-
-      <div className="relative mx-auto max-w-[1500px] px-5 pb-24 pt-10 md:px-10">
-        <div className="mb-8 inline-block border border-[#a0612a]/60 bg-[#4b2712]/35 px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-[#ffbd7b]">
+      <div className="mx-auto max-w-[1280px] px-5 pb-24 pt-10 md:px-8 lg:px-12">
+        <div className="inline-block border border-[#ff2e88]/25 bg-[#fff2f8]/70 px-4 py-2 text-[11px] uppercase tracking-[0.24em] text-[#ad245f]">
           ⚠ live environment — changes happening without warning
         </div>
 
-        <div className="absolute right-8 top-10 text-[11px] uppercase tracking-[0.26em] text-[#dcc9ad]">
-          calendar project
-        </div>
-
-        <section className="relative max-w-[760px] pt-10">
-          <div className="text-[12px] uppercase tracking-[0.30em] text-[#d8c3a6]">
-            main issue
+        <div className="mt-14 max-w-[760px]">
+          <div className="text-[12px] uppercase tracking-[0.3em] text-[#35506a]">
+            calendar project
           </div>
 
-          <h1 className="mt-4 max-w-[620px] text-5xl font-semibold leading-[0.95] md:text-7xl">
+          <h1 className="mt-4 text-5xl font-semibold leading-[0.95] md:text-7xl">
             This is not a
             <br />
             calendar app
           </h1>
 
-          <div className="ml-7 mt-4 text-xl text-[#e4d2b9] md:text-2xl">
+          <div className="mt-4 ml-6 text-xl text-[#1f3347] md:text-2xl">
             it is replacing a whiteboard
           </div>
 
-          <p className="mt-7 max-w-[700px] text-lg leading-10 text-[#d9c8b1]">
-            That assumption is where most of the weirdness starts. The moment
-            the calendar stopped being just a component, everything around it
-            had to answer for it.
+          <p className="mt-8 max-w-[720px] text-lg leading-10 text-[#26384a]">
+            That assumption is where most of the weirdness starts. The moment the
+            calendar stopped being just a component, everything around it had to
+            answer for it.
           </p>
 
-          <div className="mt-6 ml-[24rem] max-w-[260px] text-base leading-8 text-[#e2cfb1] md:ml-[29rem]">
+          <div className="mt-6 ml-10 max-w-[340px] border-l-4 border-[#00e5ff] pl-4 text-base leading-8 text-[#22425a]">
             now there are two systems pretending to be one
           </div>
-        </section>
+        </div>
 
-        <section className="relative mt-12 max-w-[1120px]">
-          <div className="ml-3 inline-block border border-[#d9c3a3]/20 bg-[#1b1713]/82 px-4 py-3">
-            <div className="text-sm uppercase tracking-[0.24em] text-[#f0ddc0]">
+        {/* primary action block */}
+        <section className="mt-14 max-w-[1080px]">
+          <div className="inline-block bg-[#10161d] px-5 py-4 text-[#f6fbff] shadow-[0_12px_32px_rgba(16,22,29,0.14)]">
+            <div className="text-sm uppercase tracking-[0.24em] text-[#9cdcff]">
               touch the broken versions first
             </div>
-            <div className="mt-3 text-sm leading-7 text-[#dbc9ae]">
+            <div className="mt-3 text-sm leading-7 text-[#d9f3ff]">
               these are safe recreations — nothing here will break your system
               <br />
               click around, then come back and read what went wrong
             </div>
           </div>
 
-          <div className="mt-7 flex flex-col gap-4 md:flex-row md:items-start md:gap-6">
+          <div className="mt-7 grid gap-4 md:grid-cols-3">
             {pokeVersions.map((item, index) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`group block border border-[#d7c3a5]/22 bg-[#17130f]/85 px-5 py-4 transition hover:border-[#f0c48d]/45 hover:bg-[#1e1812] ${
-                  index === 1
-                    ? "md:mt-6 md:max-w-[340px]"
-                    : "md:max-w-[280px]"
+                className={`group block px-5 py-5 transition ${
+                  index === 0
+                    ? "bg-[#eafaf3] text-[#0d3b23] hover:bg-[#ddf7ea]"
+                    : index === 1
+                      ? "bg-[#fff0f7] text-[#5a1435] hover:bg-[#ffe6f2]"
+                      : "bg-[#eef8ff] text-[#10364c] hover:bg-[#e2f3ff]"
                 }`}
               >
-                <div className="text-2xl font-semibold text-[#f7edde] group-hover:text-white">
-                  {item.title}
-                </div>
-                <div className="mt-2 text-sm leading-7 text-[#d6c4a9]">
-                  {item.note}
-                </div>
+                <div className="text-2xl font-semibold">{item.title}</div>
+                <div className="mt-2 text-sm leading-7 opacity-90">{item.note}</div>
               </Link>
             ))}
           </div>
 
-          <div className="mt-5 ml-2 text-sm text-[#cdb89a]">
+          <div className="mt-4 ml-2 text-sm text-[#456178]">
             ↓ read what broke below
           </div>
         </section>
 
-        <section className="relative mt-16 min-h-[1500px]">
-          <div className="absolute left-[2%] top-0 max-w-[320px]">
-            <div className="text-[12px] uppercase tracking-[0.28em] text-[#d8c3a6]">
-              where it started going wrong
+        {/* story flow */}
+        <section className="mt-20 space-y-24">
+          {/* where it started going wrong */}
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+            <div>
+              <div className="text-[12px] uppercase tracking-[0.28em] text-[#35506a]">
+                where it started going wrong
+              </div>
+
+              <div className="mt-6 space-y-3 text-xl leading-10 text-[#12202d]">
+                <div>calendar became dominant</div>
+                <div className="ml-8 text-[#5f86a8]">↓</div>
+                <div className="ml-3">stopped behaving like a card</div>
+                <div className="ml-12 text-[#5f86a8]">↓</div>
+                <div>now the system has two rules</div>
+                <div className="ml-9 text-[#5f86a8]">↓</div>
+                <div className="ml-4">global edit vs local edit</div>
+              </div>
+
+              <div className="mt-6 inline-block bg-[#f4f8fc] px-4 py-3 text-sm text-[#385168] shadow-[0_8px_22px_rgba(34,66,90,0.08)]">
+                this felt fine at first
+              </div>
             </div>
 
-            <div className="mt-4 space-y-4 text-base leading-8 text-[#e3d4bf]">
-              <div>calendar became dominant</div>
-              <div className="ml-8 text-[#c3a274]">↓</div>
-              <div className="ml-4">stopped behaving like a card</div>
-              <div className="ml-12 text-[#c3a274]">↓</div>
-              <div className="ml-1">now the system has two rules</div>
-              <div className="ml-9 text-[#c3a274]">↓</div>
-              <div className="ml-3">global edit vs local edit</div>
-            </div>
+            <div className="lg:pt-10">
+              <div className="text-[12px] uppercase tracking-[0.28em] text-[#8e2a57]">
+                most frustrating
+              </div>
 
-            <div className="mt-5 ml-8 inline-block border border-[#d7c3a5]/18 bg-[#1b1713]/80 px-3 py-2 text-sm text-[#dac7a9]">
-              this felt fine at first
-            </div>
-          </div>
+              <h2 className="mt-4 text-4xl font-semibold leading-[0.95] text-[#761743] md:text-6xl">
+                layout is
+                <br />
+                breaking
+              </h2>
 
-          <div className="absolute right-[4%] top-6 max-w-[380px]">
-            <div className="text-[12px] uppercase tracking-[0.28em] text-[#efc3c3]">
-              most frustrating
-            </div>
+              <div className="mt-5 ml-10 text-3xl text-[#4aa3cf]">←</div>
 
-            <h2 className="mt-3 max-w-[360px] text-4xl font-semibold leading-[0.95] text-[#ffe7e7] md:text-6xl">
-              layout is
-              <br />
-              breaking
-            </h2>
+              <div className="mt-2 max-w-[320px] text-lg leading-8 text-[#264764]">
+                because this isn’t just a calendar
+              </div>
 
-            <div className="mt-4 ml-16 text-3xl text-[#c3a274]">←</div>
-
-            <div className="mt-2 max-w-[260px] text-base leading-8 text-[#e5d3b9]">
-              because this isn’t just a calendar
-            </div>
-
-            <div className="mt-8 space-y-2 text-lg leading-9 text-[#eddcc9]">
-              <div>clipping</div>
-              <div>overflow issues</div>
-              <div>disappearing edit button</div>
-              <div>wrapper conflicts</div>
-            </div>
-          </div>
-
-          <div className="absolute left-[5%] top-[23rem] max-w-[340px]">
-            <div className="text-[12px] uppercase tracking-[0.28em] text-[#d8c3a6]">
-              stress tests
-            </div>
-
-            <div className="mt-4 space-y-10">
-              {stressTests.map((test) => (
-                <div key={test.name}>
-                  <div className="text-3xl font-semibold text-[#f5ecde]">
-                    {test.name}
-                  </div>
-                  <div className="mt-1 text-lg uppercase tracking-[0.24em] text-[#f1bb7f]">
-                    {test.result}
-                  </div>
-                  <div className="mt-3 max-w-[300px] text-lg leading-9 text-[#d8c8b1]">
-                    {test.note}
-                  </div>
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                <div className="bg-[#fff4f8] px-4 py-4 text-lg text-[#5e1637]">
+                  clipping
                 </div>
-              ))}
-            </div>
-
-            <div className="mt-8 max-w-[240px] text-base text-[#d4bf9f]">
-              this should have been obvious earlier
-            </div>
-          </div>
-
-          <div className="absolute left-[38%] top-[28rem] max-w-[460px]">
-            <div className="text-[12px] uppercase tracking-[0.28em] text-[#e2c8a8]">
-              failure pile
-            </div>
-
-            <div className="mt-5 space-y-4">
-              {failurePile.map((item, idx) => (
-                <div
-                  key={item}
-                  className={`border border-[#d7c3a5]/18 bg-[#1b1713]/82 px-4 py-4 text-xl text-[#f1e3d0] ${
-                    idx === 1 ? "ml-10" : ""
-                  } ${idx === 2 ? "ml-2" : ""} ${idx === 3 ? "ml-12" : ""}`}
-                >
-                  {item}
+                <div className="bg-[#eef8ff] px-4 py-4 text-lg text-[#12364e]">
+                  overflow issues
                 </div>
-              ))}
-            </div>
-
-            <div className="mt-[-1.4rem] ml-[14rem] inline-block border border-[#a0612a]/35 bg-[#4b2712]/55 px-4 py-3 text-lg leading-8 text-[#ffc98b]">
-              kept fixing symptoms instead of cause
-            </div>
-          </div>
-
-          <div className="absolute right-[5%] top-[44rem] max-w-[360px]">
-            <div className="text-[12px] uppercase tracking-[0.28em] text-[#d8c3a6]">
-              mobile reveal
-            </div>
-
-            <h3 className="mt-4 max-w-[320px] text-4xl font-semibold leading-tight md:text-5xl">
-              mobile exposed everything
-            </h3>
-
-            <div className="mt-5 space-y-2 text-lg leading-9 text-[#e7d7c1]">
-              <div>no horizontal scroll</div>
-              <div>modal broken</div>
-            </div>
-
-            <div className="mt-6 text-3xl text-[#c3a274]">↓</div>
-
-            <div className="mt-3 max-w-[240px] text-lg leading-8 text-[#d6c3a8]">
-              this wasn’t a mobile issue
-            </div>
-
-            <div className="mt-3 ml-10 text-3xl text-[#c3a274]">→</div>
-
-            <div className="mt-3 ml-20 inline-block border border-[#d7c3a5]/18 bg-[#1b1713]/82 px-4 py-3 text-lg text-[#ead9c3]">
-              this was architecture
+                <div className="bg-[#f3fff9] px-4 py-4 text-lg text-[#10402a]">
+                  disappearing edit button
+                </div>
+                <div className="bg-[#f7f1ff] px-4 py-4 text-lg text-[#3b2267]">
+                  wrapper conflicts
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="absolute left-[7%] top-[68rem] max-w-[340px]">
-            <div className="text-[12px] uppercase tracking-[0.28em] text-[#d8c3a6]">
-              what this actually revealed
+          {/* stress tests + failure pile */}
+          <div className="grid gap-12 lg:grid-cols-[0.82fr_1.18fr]">
+            <div>
+              <div className="text-[12px] uppercase tracking-[0.28em] text-[#35506a]">
+                stress tests
+              </div>
+
+              <div className="mt-6 space-y-10">
+                {stressTests.map((test, index) => (
+                  <div key={test.name} className={index === 1 ? "ml-4" : ""}>
+                    <div className="text-3xl font-semibold text-[#121d29]">
+                      {test.name}
+                    </div>
+                    <div
+                      className={`mt-1 text-lg uppercase tracking-[0.24em] ${
+                        index === 0
+                          ? "text-[#a25b1d]"
+                          : index === 1
+                            ? "text-[#8e2a57]"
+                            : "text-[#156b63]"
+                      }`}
+                    >
+                      {test.result}
+                    </div>
+                    <div className="mt-3 max-w-[320px] text-lg leading-9 text-[#2c3f52]">
+                      {test.note}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 max-w-[260px] border-l-4 border-[#ff2e88] pl-4 text-base text-[#5d2840]">
+                this should have been obvious earlier
+              </div>
             </div>
 
-            <div className="mt-5 space-y-4 text-lg leading-9 text-[#e6d7c1]">
-              <div>replacing a whiteboard is not the same as building a calendar app</div>
-              <div>calendar stopped behaving like a normal component</div>
-              <div>the visual bugs were symptoms of architectural confusion</div>
+            <div>
+              <div className="text-[12px] uppercase tracking-[0.28em] text-[#35506a]">
+                failure pile
+              </div>
+
+              <div className="mt-6 space-y-4">
+                {failurePile.map((item, idx) => (
+                  <div
+                    key={item}
+                    className={`max-w-[620px] px-5 py-4 text-xl shadow-[0_8px_20px_rgba(16,22,29,0.06)] ${
+                      idx === 0
+                        ? "bg-[#fff4f8] text-[#5a1735]"
+                        : idx === 1
+                          ? "ml-8 bg-[#eef8ff] text-[#12364e]"
+                          : idx === 2
+                            ? "ml-2 bg-[#f3fff9] text-[#10402a]"
+                            : "ml-10 bg-[#f7f1ff] text-[#3b2267]"
+                    }`}
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-[-1rem] ml-[12rem] inline-block bg-[#10161d] px-4 py-3 text-lg text-[#ffe6f2] shadow-[0_10px_26px_rgba(16,22,29,0.16)]">
+                kept fixing symptoms instead of cause
+              </div>
             </div>
           </div>
 
-          <div className="absolute right-[11%] top-[73rem] max-w-[320px]">
-            <div className="text-[12px] uppercase tracking-[0.28em] text-[#d8c3a6]">
-              current state
+          {/* mobile reveal + lesson */}
+          <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+            <div>
+              <div className="text-[12px] uppercase tracking-[0.28em] text-[#35506a]">
+                mobile reveal
+              </div>
+
+              <h3 className="mt-4 max-w-[460px] text-4xl font-semibold leading-tight text-[#16344f] md:text-5xl">
+                mobile exposed everything
+              </h3>
+
+              <div className="mt-6 space-y-3 text-xl leading-10 text-[#23384c]">
+                <div>no horizontal scroll</div>
+                <div>modal broken</div>
+              </div>
+
+              <div className="mt-6 text-3xl text-[#4aa3cf]">↓</div>
+
+              <div className="mt-3 max-w-[280px] text-lg leading-8 text-[#2d4860]">
+                this wasn’t a mobile issue
+              </div>
+
+              <div className="mt-3 ml-10 text-3xl text-[#4aa3cf]">→</div>
+
+              <div className="mt-3 ml-20 inline-block bg-[#10161d] px-4 py-3 text-lg text-[#f4fbff] shadow-[0_10px_24px_rgba(16,22,29,0.14)]">
+                this was architecture
+              </div>
             </div>
 
-            <div className="mt-4 space-y-3 text-lg leading-9 text-[#e6d7c1]">
-              {currentState.map((item) => (
-                <div key={item}>{item}</div>
-              ))}
-            </div>
+            <div>
+              <div className="text-[12px] uppercase tracking-[0.28em] text-[#35506a]">
+                what this actually revealed
+              </div>
 
-            <div className="mt-6 inline-block border border-[#a0612a]/35 bg-[#4b2712]/45 px-4 py-3 text-lg text-[#ffc98b]">
-              don’t trust this yet
+              <div className="mt-6 space-y-5 text-lg leading-9 text-[#22384a]">
+                <div>
+                  replacing a whiteboard is not the same as building a calendar app
+                </div>
+                <div>
+                  calendar stopped behaving like a normal component
+                </div>
+                <div>
+                  the visual bugs were symptoms of architectural confusion
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="absolute left-[42%] top-[87rem] max-w-[330px]">
-            <div className="text-[12px] uppercase tracking-[0.28em] text-[#d8c3a6]">
-              not built yet
+          {/* current state + future */}
+          <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+            <div>
+              <div className="text-[12px] uppercase tracking-[0.28em] text-[#35506a]">
+                current state
+              </div>
+
+              <div className="mt-6 space-y-3 text-xl leading-10 text-[#1d2d3d]">
+                {currentState.map((item) => (
+                  <div key={item}>{item}</div>
+                ))}
+              </div>
+
+              <div className="mt-7 inline-block bg-[#fff0f7] px-4 py-3 text-lg text-[#7a1b46] shadow-[0_8px_22px_rgba(122,27,70,0.08)]">
+                don’t trust this yet
+              </div>
             </div>
 
-            <div className="mt-5 space-y-3 text-lg leading-9 text-[#e5d6c0]">
-              {futureThreads.map((item) => (
-                <div key={item}>{item}</div>
-              ))}
-            </div>
+            <div className="lg:pl-10">
+              <div className="text-[12px] uppercase tracking-[0.28em] text-[#35506a]">
+                not built yet
+              </div>
 
-            <div className="mt-5 max-w-[230px] text-base leading-8 text-[#d6c3a8]">
-              this adds another system layer
-            </div>
-          </div>
+              <div className="mt-6 space-y-3 text-xl leading-10 text-[#22384a]">
+                {futureThreads.map((item) => (
+                  <div key={item}>{item}</div>
+                ))}
+              </div>
 
-          <div className="absolute left-[31%] top-[15rem] text-3xl text-[#c3a274]">
-            ↘
-          </div>
-          <div className="absolute left-[32%] top-[22rem] text-3xl text-[#c3a274]">
-            ↙
-          </div>
-          <div className="absolute left-[61%] top-[38rem] text-3xl text-[#c3a274]">
-            ↘
-          </div>
-          <div className="absolute right-[18%] top-[83rem] text-3xl text-[#c3a274]">
-            ↙
+              <div className="mt-6 max-w-[260px] border-l-4 border-[#00e5ff] pl-4 text-base leading-8 text-[#285676]">
+                this adds another system layer
+              </div>
+            </div>
           </div>
         </section>
       </div>

@@ -66,91 +66,96 @@ const recentActivity = [
 export default function LabPage() {
   return (
     <main className="relative min-h-screen overflow-hidden px-4 py-8 md:px-6 md:py-10">
-      {/* hybrid surface background */}
+      {/* energized system surface */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        {/* base surface */}
-        <div className="absolute inset-0 bg-[#171b20]" />
+        {/* base surface: cool, alive, not black void */}
+        <div className="absolute inset-0 bg-[#070b12]" />
 
-        {/* softened grid */}
+        {/* energy bleed */}
         <div
-          className="absolute inset-0 opacity-[0.045]"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, rgba(255,255,255,0.8) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(255,255,255,0.8) 1px, transparent 1px)
-            `,
-            backgroundSize: "44px 44px",
-          }}
-        />
-
-        {/* irregular lighting so it stops feeling perfectly digital */}
-        <div
-          className="absolute inset-0 opacity-90"
+          className="absolute inset-0 opacity-100"
           style={{
             background: `
-              radial-gradient(circle at 18% 22%, rgba(65, 78, 97, 0.22), transparent 0 26%),
-              radial-gradient(circle at 76% 16%, rgba(35, 79, 96, 0.16), transparent 0 22%),
-              radial-gradient(circle at 64% 68%, rgba(68, 51, 34, 0.10), transparent 0 24%),
-              radial-gradient(circle at 12% 82%, rgba(95, 58, 36, 0.08), transparent 0 18%)
+              radial-gradient(circle at 14% 18%, rgba(0,255,156,0.10), transparent 0 24%),
+              radial-gradient(circle at 82% 16%, rgba(255,46,136,0.11), transparent 0 22%),
+              radial-gradient(circle at 65% 70%, rgba(0,229,255,0.10), transparent 0 20%),
+              radial-gradient(circle at 18% 82%, rgba(157,78,221,0.10), transparent 0 18%)
             `,
           }}
         />
 
-        {/* subtle grain / paper-ish surface */}
+        {/* subtle horizontal system bands */}
         <div
-          className="absolute inset-0 opacity-[0.06]"
+          className="absolute inset-0 opacity-[0.09]"
           style={{
-            backgroundImage: `
-              radial-gradient(rgba(255,255,255,0.9) 0.6px, transparent 0.8px),
-              radial-gradient(rgba(255,255,255,0.35) 0.5px, transparent 0.7px)
-            `,
-            backgroundSize: "7px 7px, 11px 11px",
-            backgroundPosition: "0 0, 3px 4px",
-            mixBlendMode: "soft-light",
+            backgroundImage:
+              "linear-gradient(to bottom, rgba(255,255,255,0.22) 1px, transparent 1px)",
+            backgroundSize: "100% 24px",
           }}
         />
 
-        {/* vignette */}
+        {/* faint vertical segmentation, not a neat grid */}
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(255,255,255,0.18) 1px, transparent 1px)",
+            backgroundSize: "72px 100%",
+          }}
+        />
+
+        {/* signal haze */}
+        <div
+          className="absolute inset-0 opacity-[0.16]"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,255,156,0.02) 0%, rgba(0,0,0,0) 28%, rgba(255,46,136,0.02) 62%, rgba(0,229,255,0.03) 100%)",
+          }}
+        />
+
+        {/* edge falloff */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(circle at center, transparent 38%, rgba(7,9,12,0.28) 72%, rgba(4,5,7,0.55) 100%)",
+              "radial-gradient(circle at center, transparent 42%, rgba(4,6,10,0.26) 72%, rgba(2,3,5,0.52) 100%)",
           }}
         />
       </div>
 
-      <div className="mb-6 border border-[#FF8A00]/30 bg-[#FF8A00]/10 px-4 py-3 text-xs uppercase tracking-[0.2em] text-[#FFB067]">
+      {/* persistent environment warning */}
+      <div className="mb-6 inline-block border border-[#ff2e88]/35 bg-[#ff2e88]/10 px-4 py-3 text-xs uppercase tracking-[0.2em] text-[#ff93c3] shadow-[0_0_24px_rgba(255,46,136,0.08)]">
         ⚠ live environment — changes happening without warning
       </div>
 
-      <div className="pointer-events-none absolute right-6 top-28 border border-white/10 bg-[#20262D]/90 px-3 py-2 text-xs text-[#9AA3B5] shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+      {/* floating system notes */}
+      <div className="pointer-events-none absolute right-6 top-28 border border-[#00e5ff]/20 bg-[#0c121b]/90 px-3 py-2 text-xs text-[#9fdff1] shadow-[0_0_20px_rgba(0,229,255,0.06)]">
         check this later
       </div>
 
-      <div className="pointer-events-none absolute left-6 top-[35rem] border border-white/10 bg-[#20262D]/90 px-3 py-2 text-xs text-[#9AA3B5] shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+      <div className="pointer-events-none absolute left-6 top-[35rem] border border-[#00ff9c]/20 bg-[#0b1415]/90 px-3 py-2 text-xs text-[#a5f4d0] shadow-[0_0_20px_rgba(0,255,156,0.06)]">
         this broke something else
       </div>
 
-      <section className="mx-auto max-w-7xl border border-white/10 bg-[#1D2229]/90 backdrop-blur-[1px]">
+      <section className="mx-auto max-w-7xl border border-white/10 bg-[#0b1017]/82 backdrop-blur-[1px]">
         <div className="grid gap-0 lg:grid-cols-[1.12fr_0.88fr]">
           <div className="border-b border-white/10 p-6 md:p-10 lg:border-b-0 lg:border-r">
-            <p className="text-xs uppercase tracking-[0.36em] text-[#96A0B3]">
+            <p className="text-xs uppercase tracking-[0.36em] text-[#8bb7c7]">
               The Lab
             </p>
 
             <h1 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight md:text-6xl">
               Active experiments.
-              <span className="mt-1 block text-[#AAB2C2]">Results may vary.</span>
+              <span className="mt-1 block text-[#b6c6d1]">Results may vary.</span>
             </h1>
 
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#B8BFCD]">
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#c5d0d8]">
               This is what I’m actively working on. Current builds, weird
               behavior, working notes, and the environment this stuff actually
               gets tested in.
             </p>
 
-            <div className="mt-7 border-l-2 border-[#00E5FF] pl-4 text-sm text-[#9EA7B8]">
+            <div className="mt-7 border-l-2 border-[#00e5ff] pl-4 text-sm text-[#97d7e9]">
               last touched: just now
               <br />
               state: active
@@ -159,10 +164,16 @@ export default function LabPage() {
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              {labNotes.map((note) => (
+              {labNotes.map((note, index) => (
                 <div
                   key={note}
-                  className="border border-white/10 bg-[#151A1F]/95 px-4 py-3 text-sm text-[#D5DBE6]"
+                  className={`border px-4 py-3 text-sm ${
+                    index === 0
+                      ? "border-[#00ff9c]/20 bg-[#09130f]/88 text-[#c7f8df]"
+                      : index === 1
+                        ? "border-[#ff2e88]/20 bg-[#150a11]/88 text-[#ffd0e5]"
+                        : "border-[#00e5ff]/20 bg-[#091118]/88 text-[#caeef7]"
+                  }`}
                 >
                   {note}
                 </div>
@@ -171,11 +182,11 @@ export default function LabPage() {
           </div>
 
           <div className="p-6 md:p-10">
-            <p className="text-xs uppercase tracking-[0.3em] text-[#96A0B3]">
+            <p className="text-xs uppercase tracking-[0.3em] text-[#8bb7c7]">
               Notes while I’m working
             </p>
 
-            <div className="mt-5 space-y-4 text-sm leading-7 text-[#B8BFCD]">
+            <div className="mt-5 space-y-4 text-sm leading-7 text-[#c5d0d8]">
               <p>
                 This page is a snapshot of what I’m actively working on, not a
                 polished representation of it.
@@ -187,7 +198,7 @@ export default function LabPage() {
                 display.
               </p>
 
-              <div className="mt-6 space-y-3 border border-white/10 bg-[#151A1F]/95 p-4 text-[#98A0B0]">
+              <div className="mt-6 space-y-3 border border-[#00e5ff]/14 bg-[#0a1218]/90 p-4 text-[#9fb2c0]">
                 {benchNotes.map((note) => (
                   <div key={note}>{note}</div>
                 ))}
@@ -198,9 +209,9 @@ export default function LabPage() {
       </section>
 
       <section className="mx-auto mt-8 grid max-w-7xl gap-5 lg:grid-cols-[1.18fr_0.82fr]">
-        <div className="border border-white/10 bg-[#1D2229]/90 p-5 backdrop-blur-[1px]">
-          <div className="mb-6 border border-white/10 bg-[#151A1F]/95 p-4 text-xs text-[#9AA3B5]">
-            <div className="mb-2 uppercase tracking-[0.25em] text-[#6F7686]">
+        <div className="border border-white/10 bg-[#0b1017]/82 p-5 backdrop-blur-[1px]">
+          <div className="mb-6 border border-[#00ff9c]/14 bg-[#09130f]/88 p-4 text-xs text-[#9fd2ba]">
+            <div className="mb-2 uppercase tracking-[0.25em] text-[#72a289]">
               recent activity
             </div>
 
@@ -213,7 +224,7 @@ export default function LabPage() {
 
           <div className="mb-6 flex items-center justify-between gap-4">
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[#96A0B3]">
+              <p className="text-xs uppercase tracking-[0.3em] text-[#8bb7c7]">
                 Current Projects
               </p>
 
@@ -222,31 +233,37 @@ export default function LabPage() {
               </h2>
             </div>
 
-            <div className="border border-[#FF2E88]/30 bg-[#FF2E88]/10 px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-[#FF83BC]">
+            <div className="border border-[#ff2e88]/30 bg-[#ff2e88]/10 px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-[#ff8fbe] shadow-[0_0_20px_rgba(255,46,136,0.08)]">
               live
             </div>
           </div>
 
           <div className="space-y-4">
-            {activeProjects.map((project) => (
+            {activeProjects.map((project, index) => (
               <div
                 key={project.name}
-                className="border border-white/10 bg-[#151A1F]/95 p-5 transition hover:border-[#7A5CFF]/40 hover:bg-[#181E24]"
+                className={`border p-5 transition ${
+                  index === 0
+                    ? "border-[#00ff9c]/16 bg-[#09130f]/88 hover:border-[#00ff9c]/30 hover:bg-[#0b1712]"
+                    : index === 1
+                      ? "border-[#ff2e88]/16 bg-[#140a11]/88 hover:border-[#ff2e88]/30 hover:bg-[#170b13]"
+                      : "border-[#00e5ff]/16 bg-[#091118]/88 hover:border-[#00e5ff]/30 hover:bg-[#0b141b]"
+                }`}
               >
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
                     <h3 className="text-xl font-semibold">{project.name}</h3>
 
-                    <p className="mt-3 max-w-2xl text-sm leading-7 text-[#B3BBCB]">
+                    <p className="mt-3 max-w-2xl text-sm leading-7 text-[#c1ccd4]">
                       {project.note}
                     </p>
 
-                    <div className="mt-4 text-xs italic text-[#7E8698]">
+                    <div className="mt-4 text-xs italic text-[#7e98a8]">
                       {project.comment}
                     </div>
                   </div>
 
-                  <span className="border border-white/10 bg-white/[0.03] px-2 py-1 text-[10px] uppercase tracking-[0.22em] text-[#CCD3E0]">
+                  <span className="border border-white/10 bg-white/[0.03] px-2 py-1 text-[10px] uppercase tracking-[0.22em] text-[#d6e0e8]">
                     {project.status}
                   </span>
                 </div>
@@ -256,8 +273,8 @@ export default function LabPage() {
         </div>
 
         <div className="space-y-5">
-          <div className="border border-[#FF2E88]/30 bg-[rgba(72,12,36,0.55)] p-5 backdrop-blur-[1px]">
-            <p className="text-xs uppercase tracking-[0.3em] text-[#FFB0D1]">
+          <div className="border border-[#ff2e88]/28 bg-[rgba(32,8,20,0.76)] p-5 backdrop-blur-[1px] shadow-[0_0_30px_rgba(255,46,136,0.05)]">
+            <p className="text-xs uppercase tracking-[0.3em] text-[#ffb1d3]">
               Broken Right Now
             </p>
 
@@ -265,11 +282,11 @@ export default function LabPage() {
               This was working earlier.
             </h2>
 
-            <ul className="mt-5 space-y-3 text-sm text-[#F0D7E2]">
+            <ul className="mt-5 space-y-3 text-sm text-[#f2d8e4]">
               {brokenRightNow.map((item) => (
                 <li
                   key={item}
-                  className="border border-[#FF8A00]/25 bg-[#FF8A00]/10 p-4"
+                  className="border border-[#ff2e88]/18 bg-[#190b13]/70 p-4"
                 >
                   {item}
                 </li>
@@ -277,8 +294,8 @@ export default function LabPage() {
             </ul>
           </div>
 
-          <div className="border border-white/10 bg-[#1D2229]/90 p-5 backdrop-blur-[1px]">
-            <p className="text-xs uppercase tracking-[0.3em] text-[#96A0B3]">
+          <div className="border border-white/10 bg-[#0b1017]/82 p-5 backdrop-blur-[1px]">
+            <p className="text-xs uppercase tracking-[0.3em] text-[#8bb7c7]">
               Current state of things
             </p>
 
@@ -286,7 +303,7 @@ export default function LabPage() {
               What’s going on right now
             </h2>
 
-            <div className="mt-5 space-y-3 text-sm text-[#B3BBCB]">
+            <div className="mt-5 space-y-3 text-sm text-[#c1ccd4]">
               <div>
                 still pushing toward “messy workbench” instead of “clean website”
               </div>
@@ -299,31 +316,37 @@ export default function LabPage() {
         </div>
       </section>
 
-      <section className="mx-auto mt-8 max-w-7xl border border-white/10 bg-[#1D2229]/90 p-6 md:p-8 backdrop-blur-[1px]">
+      <section className="mx-auto mt-8 max-w-7xl border border-white/10 bg-[#0b1017]/82 p-6 md:p-8 backdrop-blur-[1px]">
         <div className="mb-8">
-          <p className="text-xs uppercase tracking-[0.3em] text-[#96A0B3]">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#8bb7c7]">
             Testing Ground
           </p>
 
           <h2 className="mt-2 text-3xl font-semibold">Current environment</h2>
 
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-[#B3BBCB]">
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-[#c1ccd4]">
             Not a full spec dump. Just the parts that actually matter to how
             this stuff gets built, tested, and occasionally abused.
           </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {testingGround.map((item) => (
+          {testingGround.map((item, index) => (
             <div
               key={item.label}
-              className="border border-white/10 bg-[#151A1F]/95 p-5"
+              className={`border p-5 ${
+                index % 3 === 0
+                  ? "border-[#00ff9c]/14 bg-[#09130f]/88"
+                  : index % 3 === 1
+                    ? "border-[#00e5ff]/14 bg-[#091118]/88"
+                    : "border-[#9d4edd]/14 bg-[#100b16]/88"
+              }`}
             >
-              <p className="text-xs uppercase tracking-[0.25em] text-[#8F98AA]">
+              <p className="text-xs uppercase tracking-[0.25em] text-[#8fa6b4]">
                 {item.label}
               </p>
 
-              <p className="mt-3 text-base font-medium text-[#ECEFF4]">
+              <p className="mt-3 text-base font-medium text-[#edf4f7]">
                 {item.value}
               </p>
             </div>

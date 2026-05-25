@@ -17,7 +17,7 @@ const pokeVersions = [
   },
   {
     title: "current",
-    note: "still not stable",
+    note: "the working direction",
     href: "/projects/calendar/exhibits/current",
   },
 ];
@@ -48,15 +48,43 @@ const stressTests = [
 ];
 
 const currentState = [
-  "partially working",
-  "still fighting itself",
-  "not stable",
-  "looks finished → isn’t",
+  "the calendar project is complete",
+  "the website page is still being built",
+  "broken versions are becoming playable artifacts",
+  "final museum page comes after this archive pass",
 ];
 
 const futureThreads = [
-  "iphone integrations for status cards",
-  "status syncing after visual direction is locked",
+  "archive this messy in-progress page",
+  "add reset logic for playable versions",
+  "build the finished project presentation",
+];
+
+const earlyDecisions = [
+  {
+    title: "decision 01",
+    body: "The page should keep the whiteboard replacement idea front and center. The calendar matters, but the bigger project is about making the house easier to read.",
+    className:
+      "rotate-[-0.35deg] border-[#142235]/15 bg-white/65 text-[#334155]",
+  },
+  {
+    title: "decision 02",
+    body: "Broken versions stay visible. The failures are part of the story, and people should be able to poke at them instead of only reading a clean summary after everything is fixed.",
+    className:
+      "rotate-[0.4deg] border-[#00e5ff]/35 bg-[#eefbff]/80 text-[#245064]",
+  },
+  {
+    title: "decision 03",
+    body: "The page should stay a little uneven. Not random, not unreadable, but not polished into a fake product showcase either.",
+    className:
+      "rotate-[0.25deg] border-[#ff2e88]/30 bg-[#fff2f8]/80 text-[#6e314c]",
+  },
+  {
+    title: "decision 04",
+    body: "This page is also part of the website project. It should be archived as one of the moments where the site was learning how to document the work.",
+    className:
+      "rotate-[-0.2deg] border-[#142235]/15 bg-white/70 text-[#334155]",
+  },
 ];
 
 export default function CalendarProjectPage() {
@@ -106,6 +134,18 @@ export default function CalendarProjectPage() {
       </div>
 
       <div className="mx-auto max-w-[1280px] px-5 pb-24 pt-10 md:px-8 lg:px-12">
+        <Link
+          href="/this-site"
+          className="mb-5 block max-w-[760px] rotate-[-0.25deg] border border-[#00e5ff]/35 bg-[#eefbff]/80 px-4 py-3 text-sm leading-7 text-[#16445c] shadow-[0_10px_28px_rgba(0,229,255,0.08)] transition hover:rotate-0 hover:border-[#ff2e88]/40 hover:bg-[#fff2f8]/80 hover:text-[#7a1b46]"
+        >
+          <span className="block text-[11px] uppercase tracking-[0.24em] text-[#2f6f86]">
+            website build artifact
+          </span>
+          <span className="mt-1 block">
+            this page is also part of the website project — see the site being built →
+          </span>
+        </Link>
+
         <div className="inline-block border border-[#ff2e88]/25 bg-[#fff2f8]/70 px-4 py-2 text-[11px] uppercase tracking-[0.24em] text-[#ad245f]">
           ⚠ live environment — changes happening without warning
         </div>
@@ -134,18 +174,36 @@ export default function CalendarProjectPage() {
           <div className="mt-6 ml-10 max-w-[340px] border-l-4 border-[#00e5ff] pl-4 text-base leading-8 text-[#22425a]">
             now there are two systems pretending to be one
           </div>
+
+          <div className="mt-8 max-w-3xl border-l-4 border-[#00e5ff] bg-white/50 px-5 py-4 text-base leading-8 text-[#243447] shadow-[0_14px_35px_rgba(20,34,53,0.06)]">
+            <p>
+              This page is being captured while the site is still being built. It
+              is not the final museum version yet.
+            </p>
+            <p className="mt-3">
+              Right now this is the messy in-progress artifact: early decisions,
+              broken versions, layout experiments, and the part where the
+              calendar project started turning into something bigger than a
+              calendar.
+            </p>
+          </div>
         </div>
 
         {/* primary action block */}
-        <section className="mt-14 max-w-[1080px]">
-          <div className="inline-block bg-[#10161d] px-5 py-4 text-[#f6fbff] shadow-[0_12px_32px_rgba(16,22,29,0.14)]">
-            <div className="text-sm uppercase tracking-[0.24em] text-[#9cdcff]">
-              touch the broken versions first
+        <section className="mt-14 max-w-5xl rotate-[0.25deg] border-2 border-[#142235] bg-[#f8fbff]/85 p-5 shadow-[12px_12px_0_rgba(20,34,53,0.12)] md:p-7">
+          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.28em] text-[#ff2e88]">
+                touch the broken versions first
+              </p>
+              <h2 className="mt-3 max-w-3xl text-3xl font-black leading-none tracking-[-0.05em] text-[#142235] md:text-5xl">
+                click around before you read the explanation
+              </h2>
             </div>
-            <div className="mt-3 text-sm leading-7 text-[#d9f3ff]">
-              these are safe recreations — nothing here will break your system
-              <br />
-              click around, then come back and read what went wrong
+
+            <div className="max-w-sm border border-[#00e5ff]/40 bg-[#eefbff] px-4 py-3 text-sm leading-6 text-[#16445c]">
+              safe recreations. nothing here will break your system. poke
+              around, then come back and read what went wrong.
             </div>
           </div>
 
@@ -154,23 +212,91 @@ export default function CalendarProjectPage() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`group block px-5 py-5 transition ${
+                className={`group block min-h-[180px] p-5 transition hover:-translate-y-1 ${
                   index === 0
-                    ? "bg-[#eafaf3] text-[#0d3b23] hover:bg-[#ddf7ea]"
+                    ? "rotate-[-0.5deg] border border-[#142235]/20 bg-white/75 hover:border-[#ff2e88] hover:bg-[#fff2f8]"
                     : index === 1
-                      ? "bg-[#fff0f7] text-[#5a1435] hover:bg-[#ffe6f2]"
-                      : "bg-[#eef8ff] text-[#10364c] hover:bg-[#e2f3ff]"
+                      ? "rotate-[0.65deg] border border-[#ff2e88]/35 bg-[#fff2f8]/85 hover:border-[#ff2e88] hover:bg-[#ffe6f1]"
+                      : "rotate-[-0.2deg] border border-[#00e5ff]/45 bg-[#eefbff]/90 hover:border-[#00e5ff] hover:bg-[#ddf8ff]"
                 }`}
               >
-                <div className="text-2xl font-semibold">{item.title}</div>
-                <div className="mt-2 text-sm leading-7 opacity-90">{item.note}</div>
+                <p
+                  className={`text-xs uppercase tracking-[0.24em] ${
+                    index === 0
+                      ? "text-[#6d7786]"
+                      : index === 1
+                        ? "text-[#ad245f]"
+                        : "text-[#2f6f86]"
+                  }`}
+                >
+                  {item.title}
+                </p>
+                <h3 className="mt-4 text-3xl font-black tracking-[-0.05em] text-[#142235]">
+                  {item.note}
+                </h3>
+                <p
+                  className={`mt-4 text-sm leading-7 ${
+                    index === 0
+                      ? "text-[#506173]"
+                      : index === 1
+                        ? "text-[#6e314c]"
+                        : "text-[#245064]"
+                  }`}
+                >
+                  {index === 0
+                    ? "the version that made the idea visible before the real problems showed up."
+                    : index === 1
+                      ? "the part where the project started fighting back and teaching me what it actually needed."
+                      : "not the final museum page yet, but the project is no longer pretending to be just a calendar."}
+                </p>
               </Link>
             ))}
           </div>
 
-          <div className="mt-4 ml-2 text-sm text-[#456178]">
+          <div className="mt-7 text-center text-sm font-black uppercase tracking-[0.28em] text-[#142235]">
             ↓ read what broke below
           </div>
+        </section>
+
+        <section className="mt-16 max-w-4xl">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#ff2e88]">
+            early decisions that survived
+          </p>
+
+          <h2 className="mt-3 max-w-4xl text-4xl font-black leading-[0.92] tracking-[-0.06em] text-[#142235] md:text-6xl">
+            the calendar was never the whole point
+          </h2>
+
+          <div className="mt-7 grid gap-4 md:grid-cols-2">
+            {earlyDecisions.map((decision) => (
+              <div
+                key={decision.title}
+                className={`border p-5 text-sm leading-7 ${decision.className}`}
+              >
+                <p className="font-black uppercase tracking-[0.18em] text-[#142235]">
+                  {decision.title}
+                </p>
+                <p className="mt-3">{decision.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-16 max-w-4xl rotate-[-0.25deg] border-2 border-[#00e5ff]/45 bg-[#eefbff]/85 p-6 shadow-[10px_10px_0_rgba(0,229,255,0.12)]">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#2f6f86]">
+            project status
+          </p>
+
+          <h2 className="mt-3 text-4xl font-black leading-none tracking-[-0.06em] text-[#142235] md:text-6xl">
+            the actual calendar project is done
+          </h2>
+
+          <p className="mt-5 max-w-3xl text-base leading-8 text-[#245064]">
+            The system this page is about is complete, deployed, operational,
+            and being used. The messy part now is the website documenting it:
+            preserving the broken versions, explaining what changed, and turning
+            the build into something people can explore.
+          </p>
         </section>
 
         {/* story flow */}
@@ -359,7 +485,7 @@ export default function CalendarProjectPage() {
               </div>
 
               <div className="mt-7 inline-block bg-[#fff0f7] px-4 py-3 text-lg text-[#7a1b46] shadow-[0_8px_22px_rgba(122,27,70,0.08)]">
-                don’t trust this yet
+                trust the calendar, archive this page
               </div>
             </div>
 

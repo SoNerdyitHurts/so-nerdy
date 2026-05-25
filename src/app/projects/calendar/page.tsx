@@ -60,28 +60,32 @@ const futureThreads = [
   "build the finished project presentation",
 ];
 
-const earlyDecisions = [
+const archiveDecisions = [
   {
     title: "decision 01",
-    body: "The page should keep the whiteboard replacement idea front and center. The calendar matters, but the bigger project is about making the house easier to read.",
+    tag: "whiteboard replacement",
+    body: "The goal was never just to make a nicer calendar view. The calendar had to replace the whiteboard job: one visible place where the house could understand the day without opening another app.",
     className:
       "rotate-[-0.35deg] border-[#142235]/15 bg-white/65 text-[#334155]",
   },
   {
     title: "decision 02",
-    body: "Broken versions stay visible. The failures are part of the story, and people should be able to poke at them instead of only reading a clean summary after everything is fixed.",
+    tag: "events had to be real",
+    body: "Events and reminders could not stay as loose text forever. They needed real structure because the board had to save, edit, remind, and stay consistent across devices.",
     className:
       "rotate-[0.4deg] border-[#00e5ff]/35 bg-[#eefbff]/80 text-[#245064]",
   },
   {
     title: "decision 03",
-    body: "The page should stay a little uneven. Not random, not unreadable, but not polished into a fake product showcase either.",
+    tag: "status belongs beside the calendar",
+    body: "Timers, meds, and shifts were not side decorations. They were part of the reason this needed to exist at all: the calendar shows the schedule, but the board shows the household state.",
     className:
       "rotate-[0.25deg] border-[#ff2e88]/30 bg-[#fff2f8]/80 text-[#6e314c]",
   },
   {
     title: "decision 04",
-    body: "This page is also part of the website project. It should be archived as one of the moments where the site was learning how to document the work.",
+    tag: "the display gets a vote",
+    body: "The board had to work where it actually lived. Desktop previews were not enough. The iPad, the wall display, date rollover, and real household use all became part of the test.",
     className:
       "rotate-[-0.2deg] border-[#142235]/15 bg-white/70 text-[#334155]",
   },
@@ -260,21 +264,28 @@ export default function CalendarProjectPage() {
 
         <section className="mt-16 max-w-4xl">
           <p className="text-xs uppercase tracking-[0.3em] text-[#ff2e88]">
-            early decisions that survived
+            early decisions that shaped the calendar
           </p>
 
           <h2 className="mt-3 max-w-4xl text-4xl font-black leading-[0.92] tracking-[-0.06em] text-[#142235] md:text-6xl">
-            the calendar was never the whole point
+            the board had to do more than hold dates
           </h2>
 
+          <p className="mt-5 max-w-3xl text-base leading-8 text-[#334155]">
+            These are calendar-project decisions, not website decisions. The page itself is part of the larger site experiment, but this section is about the system I actually built for the house.
+          </p>
+
           <div className="mt-7 grid gap-4 md:grid-cols-2">
-            {earlyDecisions.map((decision) => (
+            {archiveDecisions.map((decision) => (
               <div
                 key={decision.title}
                 className={`border p-5 text-sm leading-7 ${decision.className}`}
               >
                 <p className="font-black uppercase tracking-[0.18em] text-[#142235]">
                   {decision.title}
+                </p>
+                <p className="mt-2 text-[11px] font-black uppercase tracking-[0.2em] text-[#64748b]">
+                  {decision.tag}
                 </p>
                 <p className="mt-3">{decision.body}</p>
               </div>
@@ -293,9 +304,7 @@ export default function CalendarProjectPage() {
 
           <p className="mt-5 max-w-3xl text-base leading-8 text-[#245064]">
             The system this page is about is complete, deployed, operational,
-            and being used. The messy part now is the website documenting it:
-            preserving the broken versions, explaining what changed, and turning
-            the build into something people can explore.
+            and being used. It handles the household needs it was built for: events, reminders, timers, meds, shifts, live updates, and a shared display that can stay useful without being babysat.
           </p>
         </section>
 

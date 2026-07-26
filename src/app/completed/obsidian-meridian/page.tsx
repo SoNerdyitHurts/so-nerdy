@@ -258,12 +258,12 @@ export default function ObsidianMeridianPage() {
 
           <div className="grid gap-4 md:grid-cols-2">
             <img
-              src="/completed/obsidian-meridian/final-build-1.jpg"
+              src="/completed/obsidian-meridian/final-build-1.webp"
               alt="Finished Obsidian Meridian mural in Palworld"
               className="rounded-xl border border-white/10 object-cover"
             />
             <img
-              src="/completed/obsidian-meridian/final-build-2.jpg"
+              src="/completed/obsidian-meridian/final-build-2.webp"
               alt="Angled view of The Obsidian Meridian mural in Palworld"
               className="rounded-xl border border-white/10 object-cover"
             />

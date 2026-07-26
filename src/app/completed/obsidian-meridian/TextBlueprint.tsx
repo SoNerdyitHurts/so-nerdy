@@ -87,9 +87,14 @@ function renderLine(text: string) {
   [...text].forEach((character, index) => {
     const glyph = FONT[character] ?? FONT["?"];
 
-    for (let row = 0; row < 7; row += 1) rows[row] += glyph[row];
+    for (let row = 0; row < 7; row += 1) {
+      rows[row] += glyph[row];
+    }
+
     if (index < text.length - 1) {
-      for (let row = 0; row < 7; row += 1) rows[row] += "M";
+      for (let row = 0; row < 7; row += 1) {
+        rows[row] += "M";
+      }
     }
   });
 
@@ -97,7 +102,8 @@ function renderLine(text: string) {
 }
 
 function getLineWidth(text: string) {
-  return text ? renderLine(text)[0].length : 0;
+  if (!text) return 0;
+  return renderLine(text)[0].length;
 }
 
 function createPanel(lines: string[]) {
@@ -110,15 +116,28 @@ function createPanel(lines: string[]) {
 
   for (let row = 1; row < PANEL_HEIGHT - 1; row += 1) {
     const sideColor: Cell =
-      row <= 5 ? "B" : row <= 10 ? "E" : row <= 15 ? "C" : row <= 20 ? "P" : row <= 25 ? "B" : "E";
+      row <= 5
+        ? "B"
+        : row <= 10
+          ? "E"
+          : row <= 15
+            ? "C"
+            : row <= 20
+              ? "P"
+              : row <= 25
+                ? "B"
+                : "E";
+
     panel[row][0] = sideColor;
     panel[row][PANEL_WIDTH - 1] = sideColor;
   }
 
   lines.forEach((line, lineIndex) => {
     if (!line) return;
+
     const rendered = renderLine(line);
     const width = rendered[0].length;
+
     if (width > MAX_TEXT_WIDTH) return;
 
     const startColumn = Math.floor((PANEL_WIDTH - width) / 2);
@@ -126,14 +145,15 @@ function createPanel(lines: string[]) {
 
     rendered.forEach((row, rowOffset) => {
       [...row].forEach((cell, columnOffset) => {
-        if (cell === "C") panel[startRow + rowOffset][startColumn + columnOffset] = "C";
+        if (cell === "C") {
+          panel[startRow + rowOffset][startColumn + columnOffset] = "C";
+        }
       });
     });
   });
 
   return panel;
 }
-
 
 function buildSvg(panel: Cell[][]) {
   const cellSize = 20;
@@ -175,15 +195,27 @@ function makeDownloadName(lines: string[]) {
 }
 
 export default function TextBlueprint() {
-  const [lines, setLines] = useState(["THE", "OBSIDIAN", "MERIDIAN"]);
-  const widths = useMemo(() => lines.map(getLineWidth), [lines]);
+  const exampleLines = ["THE", "OBSIDIAN", "MERIDIAN"];
+  const [lines, setLines] = useState(exampleLines);
+
+  const widths = useMemo(
+    () => lines.map((line) => getLineWidth(line)),
+    [lines],
+  );
+
   const panel = useMemo(() => createPanel(lines), [lines]);
   const hasInvalidLine = widths.some((width) => width > MAX_TEXT_WIDTH);
 
   function updateLine(index: number, value: string) {
     setLines((current) =>
-      current.map((line, i) => (i === index ? cleanInput(value) : line)),
+      current.map((line, lineIndex) =>
+        lineIndex === index ? cleanInput(value) : line,
+      ),
     );
+  }
+
+  function resetExample() {
+    setLines([...exampleLines]);
   }
 
   function downloadSvg() {
@@ -201,38 +233,65 @@ export default function TextBlueprint() {
     document.body.appendChild(anchor);
     anchor.click();
     anchor.remove();
-    URL.revokeObjectURL(url);
+
+    window.setTimeout(() => URL.revokeObjectURL(url), 0);
   }
 
   return (
     <section className="mx-auto max-w-6xl px-6 py-10">
       <div className="space-y-8 rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-10">
         <div className="max-w-3xl space-y-4">
-          <p className="text-sm uppercase tracking-[0.25em] text-[#E1A84A]">Try the Blueprint</p>
-          <h2 className="text-3xl font-bold">Make your own wall-piece grid</h2>
+          <p className="text-sm uppercase tracking-[0.25em] text-[#E1A84A]">
+            Try the Blueprint
+          </p>
+
+          <h2 className="text-3xl font-bold">
+            Make your own wall-piece grid
+          </h2>
+
           <p className="text-base leading-8 text-slate-300">
-            Type up to three lines and the generator will map them into the same 49×29 blueprint format I used for The Obsidian Meridian. Each square in the preview represents one painted wall piece in Palworld.
+            Type up to three lines and the generator will map them into the same
+            49×29 blueprint format I used for The Obsidian Meridian. Each square
+            in the preview represents one painted wall piece in Palworld.
           </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
           {lines.map((line, index) => {
             const isTooWide = widths[index] > MAX_TEXT_WIDTH;
+
             return (
               <label key={index} className="space-y-2">
                 <span className="flex items-center justify-between text-sm">
-                  <span className="font-medium text-slate-200">Line {index + 1}</span>
-                  <span className={isTooWide ? "text-red-400" : "text-slate-400"}>
+                  <span className="font-medium text-slate-200">
+                    Line {index + 1}
+                  </span>
+
+                  <span
+                    className={
+                      isTooWide ? "text-red-400" : "text-slate-400"
+                    }
+                  >
                     {widths[index]}/{MAX_TEXT_WIDTH} blocks
                   </span>
                 </span>
+
                 <input
                   value={line}
                   onChange={(event) => updateLine(index, event.target.value)}
                   aria-invalid={isTooWide}
-                  className={`w-full rounded-lg border bg-black/25 px-4 py-3 font-mono uppercase text-slate-100 outline-none transition ${isTooWide ? "border-red-400 focus:border-red-300" : "border-white/10 focus:border-[#4FC3F7]"}`}
+                  className={`w-full rounded-lg border bg-black/25 px-4 py-3 font-mono uppercase text-slate-100 outline-none transition ${
+                    isTooWide
+                      ? "border-red-400 focus:border-red-300"
+                      : "border-white/10 focus:border-[#4FC3F7]"
+                  }`}
                 />
-                {isTooWide && <span className="block text-sm text-red-400">This line is too wide for the 49-column panel.</span>}
+
+                {isTooWide && (
+                  <span className="block text-sm text-red-400">
+                    This line is too wide for the 49-column panel.
+                  </span>
+                )}
               </label>
             );
           })}
@@ -244,19 +303,30 @@ export default function TextBlueprint() {
               <h3 className="text-lg font-semibold text-slate-100">
                 Live blueprint
               </h3>
+
               <p className="mt-1 text-sm text-slate-400">
                 Download the exact grid currently shown below.
               </p>
             </div>
 
-            <button
-              type="button"
-              onClick={downloadSvg}
-              disabled={hasInvalidLine}
-              className="inline-flex items-center justify-center rounded-lg border border-[#4FC3F7]/50 bg-[#4FC3F7]/10 px-4 py-2.5 text-sm font-semibold text-[#BFEAFF] transition hover:border-[#4FC3F7] hover:bg-[#4FC3F7]/20 disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/[0.03] disabled:text-slate-500"
-            >
-              Download SVG
-            </button>
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={resetExample}
+                className="inline-flex items-center justify-center rounded-lg border border-white/15 bg-white/[0.04] px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-white/30 hover:bg-white/[0.08] hover:text-white"
+              >
+                Reset Example
+              </button>
+
+              <button
+                type="button"
+                onClick={downloadSvg}
+                disabled={hasInvalidLine}
+                className="inline-flex items-center justify-center rounded-lg border border-[#4FC3F7]/50 bg-[#4FC3F7]/10 px-4 py-2.5 text-sm font-semibold text-[#BFEAFF] transition hover:border-[#4FC3F7] hover:bg-[#4FC3F7]/20 disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/[0.03] disabled:text-slate-500"
+              >
+                Download SVG
+              </button>
+            </div>
           </div>
 
           <div className="overflow-x-auto rounded-2xl border border-white/10 bg-black/30 p-3 md:p-5">
@@ -282,7 +352,8 @@ export default function TextBlueprint() {
         </div>
 
         <p className="text-sm leading-6 text-slate-400">
-          Supported characters: A–Z, 0–9, spaces, and basic punctuation. Lines wider than 45 blocks are left out of the preview.
+          Supported characters: A–Z, 0–9, spaces, and basic punctuation. Lines
+          wider than 45 blocks are left out of the preview.
         </p>
       </div>
     </section>

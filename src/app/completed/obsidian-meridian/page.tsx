@@ -15,20 +15,28 @@ const stats = [
 
 const earlierBuilds = [
   {
-    src: "/completed/obsidian-meridian/earlier-build-1.jpg",
+    src: "/completed/obsidian-meridian/earlier-build-1.webp",
     alt: "Earlier giant painted-wall build in Palworld",
+    width: 1920,
+    height: 1039,
   },
   {
-    src: "/completed/obsidian-meridian/earlier-build-2.jpg",
+    src: "/completed/obsidian-meridian/earlier-build-2.webp",
     alt: "Earlier painted-wall structure built into the Palworld landscape",
+    width: 1920,
+    height: 1145,
   },
   {
-    src: "/completed/obsidian-meridian/earlier-build-3.jpg",
+    src: "/completed/obsidian-meridian/earlier-build-3.webp",
     alt: "Earlier large-scale painted-wall experiment in Palworld",
+    width: 1920,
+    height: 1020,
   },
   {
-    src: "/completed/obsidian-meridian/earlier-build-4.jpg",
+    src: "/completed/obsidian-meridian/earlier-build-4.webp",
     alt: "Another earlier painted-wall build in Palworld",
+    width: 1920,
+    height: 1184,
   },
 ];
 
@@ -38,9 +46,12 @@ export default function ObsidianMeridianPage() {
       <section className="mx-auto max-w-6xl px-6 py-12 md:py-16">
         <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] shadow-2xl">
           <img
-            src="/completed/obsidian-meridian/hero.jpg"
+            src="/completed/obsidian-meridian/hero.webp"
             alt="The Obsidian Meridian mural built in Palworld"
-            className="h-auto w-full object-cover"
+            width={1920}
+            height={1080}
+            fetchPriority="high"
+            className="block h-auto w-full object-cover"
           />
 
           <div className="space-y-8 p-6 md:p-10">
@@ -114,7 +125,11 @@ export default function ObsidianMeridianPage() {
                 key={image.src}
                 src={image.src}
                 alt={image.alt}
-                className="aspect-video rounded-xl border border-white/10 object-cover"
+                width={image.width}
+                height={image.height}
+                loading="lazy"
+                decoding="async"
+                className="block aspect-video w-full rounded-xl border border-white/10 object-cover"
               />
             ))}
           </div>
@@ -154,7 +169,11 @@ export default function ObsidianMeridianPage() {
             <img
               src="/completed/obsidian-meridian/grid-closeup.png"
               alt="Close-up showing individual painted wall pieces in the Palworld mural"
-              className="rounded-xl border border-white/10 object-cover"
+              width={1823}
+              height={704}
+              loading="lazy"
+              decoding="async"
+              className="block h-auto w-full rounded-xl border border-white/10"
             />
           </div>
         </div>
@@ -170,7 +189,9 @@ export default function ObsidianMeridianPage() {
             <h2 className="text-3xl font-bold">Taking the guesswork out</h2>
 
             <div className="space-y-5 text-base leading-8 text-slate-300">
-              <p>I used Python to turn the title into a block-by-block blueprint.</p>
+              <p>
+                I used Python to turn the title into a block-by-block blueprint.
+              </p>
 
               <p>
                 The script generated the layout for the 49×29 title panel, with
@@ -190,7 +211,9 @@ export default function ObsidianMeridianPage() {
             <img
               src="/completed/obsidian-meridian/blueprint-v10.svg"
               alt="Generated 49 by 29 title panel blueprint for The Obsidian Meridian"
-              className="w-full"
+              loading="lazy"
+              decoding="async"
+              className="block h-auto w-full"
             />
           </div>
         </div>
@@ -201,7 +224,11 @@ export default function ObsidianMeridianPage() {
           <img
             src="/completed/obsidian-meridian/spreadsheet-blueprint.jpg"
             alt="Original spreadsheet blueprint used to build The Obsidian Meridian title panel"
-            className="rounded-2xl border border-white/10 object-cover"
+            width={2219}
+            height={1232}
+            loading="lazy"
+            decoding="async"
+            className="block h-auto w-full rounded-2xl border border-white/10"
           />
 
           <div className="space-y-5">
@@ -238,7 +265,7 @@ export default function ObsidianMeridianPage() {
         </div>
       </section>
 
-            <TextBlueprint />
+      <TextBlueprint />
 
       <section className="mx-auto max-w-6xl px-6 py-10">
         <div className="space-y-6">
@@ -250,7 +277,10 @@ export default function ObsidianMeridianPage() {
             <h2 className="text-3xl font-bold">Building it for real</h2>
 
             <div className="space-y-5 text-base leading-8 text-slate-300">
-              <p>The final build took several hours across planning, building, and painting.</p>
+              <p>
+                The final build took several hours across planning, building,
+                and painting.
+              </p>
 
               <p>
                 I had to plan the dimensions for the artwork next to the title,
@@ -266,12 +296,21 @@ export default function ObsidianMeridianPage() {
             <img
               src="/completed/obsidian-meridian/final-build-1.webp"
               alt="Finished Obsidian Meridian mural in Palworld"
-              className="rounded-xl border border-white/10 object-cover"
+              width={1920}
+              height={1080}
+              loading="lazy"
+              decoding="async"
+              className="block aspect-video w-full rounded-xl border border-white/10 object-cover"
             />
+
             <img
               src="/completed/obsidian-meridian/final-build-2.webp"
               alt="Angled view of The Obsidian Meridian mural in Palworld"
-              className="rounded-xl border border-white/10 object-cover"
+              width={1920}
+              height={1080}
+              loading="lazy"
+              decoding="async"
+              className="block aspect-video w-full rounded-xl border border-white/10 object-cover"
             />
           </div>
 

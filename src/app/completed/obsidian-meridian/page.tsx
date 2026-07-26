@@ -1,3 +1,5 @@
+import TextBlueprint from "./TextBlueprint";
+
 const stats = [
   { label: "Location", value: "Forgotten Island" },
   { label: "Coordinates", value: "-449, -44" },
@@ -229,6 +231,8 @@ export default function ObsidianMeridianPage() {
           </div>
         </div>
       </section>
+
+            <TextBlueprint />
 
       <section className="mx-auto max-w-6xl px-6 py-10">
         <div className="space-y-6">

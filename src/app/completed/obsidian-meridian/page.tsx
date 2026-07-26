@@ -1,5 +1,11 @@
 import TextBlueprint from "./TextBlueprint";
 
+export const metadata = {
+  title: "The Obsidian Meridian",
+  description:
+    "A massive Palworld mural planned with a Python-generated, spreadsheet-style blueprint.",
+};
+
 const stats = [
   { label: "Location", value: "Forgotten Island" },
   { label: "Coordinates", value: "-449, -44" },

@@ -134,13 +134,74 @@ function createPanel(lines: string[]) {
   return panel;
 }
 
+
+function buildSvg(panel: Cell[][]) {
+  const cellSize = 20;
+  const padding = 24;
+  const gridWidth = PANEL_WIDTH * cellSize;
+  const gridHeight = PANEL_HEIGHT * cellSize;
+  const svgWidth = gridWidth + padding * 2;
+  const svgHeight = gridHeight + padding * 2;
+
+  const cells = panel
+    .flatMap((row, rowIndex) =>
+      row.map((cell, columnIndex) => {
+        const x = padding + columnIndex * cellSize;
+        const y = padding + rowIndex * cellSize;
+
+        return `<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" fill="${COLORS[cell]}" stroke="#000000" stroke-opacity="0.25" stroke-width="1" />`;
+      }),
+    )
+    .join("");
+
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}" role="img" aria-label="49 by 29 wall-piece blueprint" shape-rendering="crispEdges">`,
+    `<rect width="100%" height="100%" fill="#11131c" rx="16" />`,
+    `<rect x="${padding - 10}" y="${padding - 10}" width="${gridWidth + 20}" height="${gridHeight + 20}" fill="none" stroke="${COLORS.P}" stroke-width="2" rx="12" />`,
+    cells,
+    `</svg>`,
+  ].join("");
+}
+
+function makeDownloadName(lines: string[]) {
+  const name = lines
+    .filter(Boolean)
+    .join("-")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+  return `${name || "wall-piece-blueprint"}.svg`;
+}
+
 export default function TextBlueprint() {
   const [lines, setLines] = useState(["THE", "OBSIDIAN", "MERIDIAN"]);
   const widths = useMemo(() => lines.map(getLineWidth), [lines]);
   const panel = useMemo(() => createPanel(lines), [lines]);
+  const hasInvalidLine = widths.some((width) => width > MAX_TEXT_WIDTH);
 
   function updateLine(index: number, value: string) {
-    setLines((current) => current.map((line, i) => (i === index ? cleanInput(value) : line)));
+    setLines((current) =>
+      current.map((line, i) => (i === index ? cleanInput(value) : line)),
+    );
+  }
+
+  function downloadSvg() {
+    if (hasInvalidLine) return;
+
+    const svg = buildSvg(panel);
+    const blob = new Blob([svg], {
+      type: "image/svg+xml;charset=utf-8",
+    });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+
+    anchor.href = url;
+    anchor.download = makeDownloadName(lines);
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(url);
   }
 
   return (
@@ -177,22 +238,46 @@ export default function TextBlueprint() {
           })}
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-white/10 bg-black/30 p-3 md:p-5">
-          <div
-            className="grid min-w-[760px] overflow-hidden rounded-xl border-2 border-[#6B5CA5]"
-            style={{ gridTemplateColumns: `repeat(${PANEL_WIDTH}, minmax(0, 1fr))` }}
-            aria-label="Live 49 by 29 wall-piece blueprint preview"
-          >
-            {panel.flatMap((row, rowIndex) =>
-              row.map((cell, columnIndex) => (
-                <div
-                  key={`${rowIndex}-${columnIndex}`}
-                  className="aspect-square border-b border-r border-black/25"
-                  style={{ backgroundColor: COLORS[cell] }}
-                  title={`Row ${rowIndex + 1}, column ${columnIndex + 1}`}
-                />
-              )),
-            )}
+        <div className="space-y-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h3 className="text-lg font-semibold text-slate-100">
+                Live blueprint
+              </h3>
+              <p className="mt-1 text-sm text-slate-400">
+                Download the exact grid currently shown below.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={downloadSvg}
+              disabled={hasInvalidLine}
+              className="inline-flex items-center justify-center rounded-lg border border-[#4FC3F7]/50 bg-[#4FC3F7]/10 px-4 py-2.5 text-sm font-semibold text-[#BFEAFF] transition hover:border-[#4FC3F7] hover:bg-[#4FC3F7]/20 disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/[0.03] disabled:text-slate-500"
+            >
+              Download SVG
+            </button>
+          </div>
+
+          <div className="overflow-x-auto rounded-2xl border border-white/10 bg-black/30 p-3 md:p-5">
+            <div
+              className="grid min-w-[760px] overflow-hidden rounded-xl border-2 border-[#6B5CA5]"
+              style={{
+                gridTemplateColumns: `repeat(${PANEL_WIDTH}, minmax(0, 1fr))`,
+              }}
+              aria-label="Live 49 by 29 wall-piece blueprint preview"
+            >
+              {panel.flatMap((row, rowIndex) =>
+                row.map((cell, columnIndex) => (
+                  <div
+                    key={`${rowIndex}-${columnIndex}`}
+                    className="aspect-square border-b border-r border-black/25"
+                    style={{ backgroundColor: COLORS[cell] }}
+                    title={`Row ${rowIndex + 1}, column ${columnIndex + 1}`}
+                  />
+                )),
+              )}
+            </div>
           </div>
         </div>
 

@@ -36,7 +36,7 @@ const FONT: Record<string, Glyph> = {
   O: ["MCCCCM", "CMMMMC", "CMMMMC", "CMMMMC", "CMMMMC", "CMMMMC", "MCCCCM"],
   P: ["CCCCM", "CMMMC", "CMMMC", "CCCCM", "CMMMM", "CMMMM", "CMMMM"],
   Q: ["MCCCCM", "CMMMMC", "CMMMMC", "CMMMMC", "CMMCMC", "CMMMCM", "MCCCCM"],
-  R: ["CCCCM", "CMMMC", "CMMMC", "CCCCM", "CMCCM", "CMMCM", "CMMMC"],
+  R: ["CCCCM", "CMMMC", "CMMMC", "CCCCM", "CMCMM", "CMMCM", "CMMMC"],
   S: ["CCCCC", "CMMMM", "CMMMM", "CCCCM", "MMMMC", "MMMMC", "CCCCC"],
   T: ["CCCCC", "MMCMM", "MMCMM", "MMCMM", "MMCMM", "MMCMM", "MMCMM"],
   U: ["CMMMC", "CMMMC", "CMMMC", "CMMMC", "CMMMC", "CMMMC", "MCCCM"],

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 
 type DayOverride = {
@@ -41,6 +41,21 @@ type MealDay = {
   id: string;
   day: string;
   value: string;
+};
+
+type TimerType = "break" | "lunch";
+
+type DemoTimer = {
+  id: string;
+  type: TimerType;
+  label: string;
+  startedAt: number;
+  endsAt: number;
+};
+
+type MedsState = {
+  taken: boolean;
+  takenAt: number | null;
 };
 
 const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -99,6 +114,35 @@ const defaultDayNotes: Record<number, string> = {
 function pad2(value: number) {
   return String(value).padStart(2, "0");
 }
+
+function formatCountdown(msRemaining: number) {
+  const totalSeconds = Math.max(0, Math.ceil(msRemaining / 1000));
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  if (minutes > 0) {
+    return `${minutes}m ${pad2(seconds)}s`;
+  }
+
+  return `${seconds}s`;
+}
+
+function formatClock(timestamp: number | null) {
+  if (!timestamp) return "";
+  return new Date(timestamp).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
+
+function timerLabel(type: TimerType) {
+  return type === "break" ? "Break" : "Lunch";
+}
+
+const timerDurations: Record<TimerType, number> = {
+  break: 15 * 60 * 1000,
+  lunch: 30 * 60 * 1000,
+};
 
 function getCurrentMonthKey() {
   const now = new Date();
@@ -436,19 +480,73 @@ function StatusCard({
   personLabel,
   accent,
   status,
-  timers,
-  meds,
   shift,
 }: {
   personLabel: string;
   accent: string;
   status: string;
-  timers: string[];
-  meds: string;
   shift: string;
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [statusLine, setStatusLine] = useState(status);
+  const [timers, setTimers] = useState<DemoTimer[]>([]);
+  const [meds, setMeds] = useState<MedsState>({
+    taken: false,
+    takenAt: null,
+  });
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setNow(Date.now());
+    }, 1000);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  const activeTimers = timers
+    .filter((timer) => timer.endsAt > now)
+    .slice(0, 2);
+
+  function startTimer(type: TimerType) {
+    const startedAt = Date.now();
+    const endsAt = startedAt + timerDurations[type];
+
+    setTimers((current) => {
+      const withoutSameType = current.filter((timer) => timer.type !== type);
+
+      return [
+        ...withoutSameType,
+        {
+          id: `${personLabel}-${type}-${startedAt}`,
+          type,
+          label: timerLabel(type),
+          startedAt,
+          endsAt,
+        },
+      ];
+    });
+
+    setNow(startedAt);
+  }
+
+  function clearTimer(type: TimerType) {
+    setTimers((current) => current.filter((timer) => timer.type !== type));
+  }
+
+  function markMedsTaken() {
+    setMeds({
+      taken: true,
+      takenAt: Date.now(),
+    });
+  }
+
+  function clearMeds() {
+    setMeds({
+      taken: false,
+      takenAt: null,
+    });
+  }
 
   return (
     <BoardCard
@@ -475,6 +573,11 @@ function StatusCard({
                 <input
                   value={statusLine}
                   onChange={(event) => setStatusLine(event.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      setIsEditing(false);
+                    }
+                  }}
                   className="mt-1 w-full rounded-xl border border-white/20 bg-black/30 px-3 py-2 text-lg font-black text-white outline-none focus:border-cyan-200"
                 />
               ) : (
@@ -487,22 +590,96 @@ function StatusCard({
         </div>
 
         <div className="grid gap-2 text-sm text-slate-200">
-          {timers.map((timer, index) => (
-            <div
-              key={`${timer}-${index}`}
-              className="flex items-center justify-between gap-3 rounded-xl border border-slate-700 bg-slate-950/70 px-3 py-2"
-            >
+          {activeTimers.length > 0 ? (
+            activeTimers.map((timer) => (
+              <div
+                key={timer.id}
+                className="flex items-center justify-between gap-3 rounded-xl border border-slate-700 bg-slate-950/70 px-3 py-2"
+              >
+                <span>{timer.label}</span>
+                <strong>{formatCountdown(timer.endsAt - now)}</strong>
+              </div>
+            ))
+          ) : (
+            <div className="flex items-center justify-between gap-3 rounded-xl border border-dashed border-slate-700 bg-slate-950/40 px-3 py-2 text-slate-400">
               <span>Timer</span>
-              <strong>{timer}</strong>
+              <strong>none active</strong>
             </div>
-          ))}
-          <div className="flex items-center justify-between gap-3 rounded-xl border border-slate-700 bg-slate-950/70 px-3 py-2">
+          )}
+
+          <div
+            className={`flex items-center justify-between gap-3 rounded-xl border px-3 py-2 ${
+              meds.taken
+                ? "border-emerald-300/40 bg-emerald-400/10"
+                : "border-slate-700 bg-slate-950/70"
+            }`}
+          >
             <span>Meds</span>
-            <strong>{meds}</strong>
+            <strong>{meds.taken ? `Taken • ${formatClock(meds.takenAt)}` : "Pending"}</strong>
           </div>
+
           <div className="flex items-center justify-between gap-3 rounded-xl border border-slate-700 bg-slate-950/70 px-3 py-2">
             <span>Shift</span>
             <strong>{shift}</strong>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-cyan-200/20 bg-cyan-200/5 p-3">
+          <div className="mb-3 text-[0.68rem] font-black uppercase tracking-[0.22em] text-cyan-100">
+            Shortcut simulator
+          </div>
+
+          <div className="grid gap-2">
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => startTimer("break")}
+                className="rounded-xl border border-cyan-200/30 bg-cyan-300/10 px-3 py-2 text-xs font-black uppercase tracking-[0.14em] text-cyan-100 hover:bg-cyan-300/20"
+              >
+                Start Break
+              </button>
+              <button
+                type="button"
+                onClick={() => clearTimer("break")}
+                className="rounded-xl border border-slate-700 bg-slate-950/70 px-3 py-2 text-xs font-black uppercase tracking-[0.14em] text-slate-300 hover:bg-slate-900"
+              >
+                Clear Break
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => startTimer("lunch")}
+                className="rounded-xl border border-cyan-200/30 bg-cyan-300/10 px-3 py-2 text-xs font-black uppercase tracking-[0.14em] text-cyan-100 hover:bg-cyan-300/20"
+              >
+                Start Lunch
+              </button>
+              <button
+                type="button"
+                onClick={() => clearTimer("lunch")}
+                className="rounded-xl border border-slate-700 bg-slate-950/70 px-3 py-2 text-xs font-black uppercase tracking-[0.14em] text-slate-300 hover:bg-slate-900"
+              >
+                Clear Lunch
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={markMedsTaken}
+                className="rounded-xl border border-emerald-200/30 bg-emerald-300/10 px-3 py-2 text-xs font-black uppercase tracking-[0.14em] text-emerald-100 hover:bg-emerald-300/20"
+              >
+                Mark Meds
+              </button>
+              <button
+                type="button"
+                onClick={clearMeds}
+                className="rounded-xl border border-slate-700 bg-slate-950/70 px-3 py-2 text-xs font-black uppercase tracking-[0.14em] text-slate-300 hover:bg-slate-900"
+              >
+                Clear Meds
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1167,16 +1344,12 @@ export default function CalendarV1Page() {
                 personLabel="PERSON 1"
                 accent="rgba(14,165,233,0.55)"
                 status="home mode"
-                timers={["12m left", "44m left"]}
-                meds="done"
                 shift="off"
               />
               <StatusCard
                 personLabel="PERSON 2"
                 accent="rgba(124,58,237,0.55)"
                 status="working"
-                timers={["break in 18m"]}
-                meds="due later"
                 shift="5:00–1:30"
               />
               <GroceryCard />
